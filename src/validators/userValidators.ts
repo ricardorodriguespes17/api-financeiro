@@ -1,0 +1,18 @@
+import { check } from 'express-validator'
+
+export const createUserValidators = [
+  check('name').notEmpty().withMessage('Name is required'),
+  check('email').isEmail().withMessage('Email is required'),
+  check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+]
+
+export const updateUserValidators = [
+  check('id').notEmpty().withMessage('ID is required'),
+  check('name').notEmpty().withMessage('Name is required'),
+  check('email').isEmail().withMessage('Email is required'),
+  check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+]
+
+export const deleteUserValidators = [
+  check('id').notEmpty().withMessage('ID is required'),
+]
