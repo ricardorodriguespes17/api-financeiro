@@ -38,7 +38,13 @@ describe("UserController", () => {
 
   it("should update a user", async () => {
     const result = await userController.updateUser(mockUser)
-    expect(userORM.update).toHaveBeenCalledWith(mockUser.id, mockUser)
+    expect(userORM.update).toHaveBeenCalledWith(mockUser.id, 
+      {
+        email: mockUser.email, 
+        name: mockUser.name, 
+        password: mockUser.password
+      }
+    )
     expect(result).toEqual(mockUser)
   })
 
