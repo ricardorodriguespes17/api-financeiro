@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import PrismaORM from './PrismaORM';
-import { IORM } from './IORM';
+import { OrmInterface } from './ormInterface';
 import { ORMType } from '../@types/ormType';
 
 type Entity = 'User';
@@ -12,7 +12,7 @@ class ORMFactory {
     this.prisma = new PrismaClient();
   }
 
-  getORM<Model>(ormType: ORMType, entity: Entity): IORM<Model> {
+  getORM<Model>(ormType: ORMType, entity: Entity): OrmInterface<Model> {
     switch (ormType) {
       case 'Prisma':
         return this.getPrismaORM<Model>(entity);

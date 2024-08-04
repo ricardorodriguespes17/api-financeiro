@@ -1,4 +1,4 @@
-export interface IORM<Model> {
+export interface OrmInterface<Model> {
   create(data: CreateModel<Model>): Promise<Model>;
   update(id: string, data: CreateModel<Model>): Promise<Model>;
   delete(id: string): Promise<void>;

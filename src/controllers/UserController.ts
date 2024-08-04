@@ -1,35 +1,61 @@
-import { UserType } from "../@types/UserType";
-import ormConfig from "../config/orm.config";
-import { CreateModel, IORM } from "../orm/IORM";
-import ORMFactory from "../orm/ORMFactory";
+import { Request, Response } from "express";
+import UserService from "../services/UserService";
 
 class UserController {
-  private ormFactory: ORMFactory
-  private userORM: IORM<UserType>
+  private userService = new UserService()
 
-  constructor() {
-    this.ormFactory = new ORMFactory()
-    this.userORM = this.ormFactory.getORM<UserType>(ormConfig.orm, "User")
+  createUser = async (req: Request, res: Response) => {
+    const { name, email, password } = req.body
+
+    try {
+      await this.userService.create({ email, name, password, id: "" })
+      return res.status(201).json({ message: "User created successfully" })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
-  createUser(data: CreateModel<UserType>): Promise<UserType> {
-    return this.userORM.create(data)
+  updateUser = async (req: Request, res: Response) => {
+    const { name, email, password } = req.body
+    const { id } = req.params
+
+    try {
+      await this.userService.update({ id, email, name, password })
+      return res.status(201).json({ message: "User updated successfully" })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
-  updateUser(data: UserType) {
-    return this.userORM.update(data.id, { email: data.email, name: data.name, password: data.password })
+  deleteUser = async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    try {
+      await this.userService.delete(id)
+      return res.status(204).send()
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
-  deleteUser(id: string) {
-    return this.userORM.delete(id)
+  findAllUsers = async (req: Request, res: Response) => {
+    try {
+      const users = await this.userService.findAll()
+      return res.status(200).json(users)
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 
-  findAllUsers() {
-    return this.userORM.findAll()
-  }
+  findUserById = async (req: Request, res: Response) => {
+    const { id } = req.params
 
-  findUserById(id: string) {
-    return this.userORM.findById(id)
+    try {
+      const user = await this.userService.findById(id)
+      return res.status(200).json(user)
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
   }
 }
 

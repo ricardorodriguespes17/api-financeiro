@@ -1,6 +1,6 @@
-import { CreateModel, IORM } from "./IORM";
+import { CreateModel, OrmInterface } from "./ormInterface";
 
-class PrismaORM<Model> implements IORM<Model> {
+class PrismaORM<Model> implements OrmInterface<Model> {
   private model: any;
 
   constructor(model: any) {
