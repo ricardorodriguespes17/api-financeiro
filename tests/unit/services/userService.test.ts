@@ -1,11 +1,11 @@
-import { UserType } from "../../../src/@types/UserType"
+import UserProps from "../../../src/@types/UserType"
 import { OrmInterface } from "../../../src/orm/ormInterface"
 import ORMFactory from "../../../src/orm/ORMFactory"
 import UserService from "../../../src/services/UserService"
 
 jest.mock("../../../src/orm/ORMFactory")
 
-const mockUser: UserType = {
+const mockUser: UserProps.Model = {
   id: "1",
   name: "Test User",
   email: "test@example.com",
@@ -14,7 +14,7 @@ const mockUser: UserType = {
 
 describe("User Service tests", () => {
   let userService: UserService
-  let userORM: jest.Mocked<OrmInterface<UserType>>
+  let userORM: jest.Mocked<OrmInterface<UserProps.Model>>
 
   beforeEach(() => {
     userORM = {
@@ -37,8 +37,14 @@ describe("User Service tests", () => {
   })
 
   it("should update a user", async () => {
+    const mockUserToUpdate = {
+      name: "Test User",
+      email: "test@example.com",
+      password: "password123"
+    }
+
     const result = await userService.update(mockUser)
-    expect(userORM.update).toHaveBeenCalledWith(mockUser.id, mockUser)
+    expect(userORM.update).toHaveBeenCalledWith(mockUser.id, mockUserToUpdate)
     expect(result).toEqual(mockUser)
   })
 

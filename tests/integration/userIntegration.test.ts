@@ -1,7 +1,7 @@
 import request from 'supertest'
 import express, { Application } from 'express'
 import UserController from '../../src/controllers/UserController'
-import { UserType } from '../../src/@types/UserType'
+import UserProps from '../../src/@types/UserType'
 
 const app: Application = express()
 app.use(express.json())
@@ -14,7 +14,7 @@ app.get('/users', userController.findAllUsers)
 app.get('/users/:id', userController.findUserById)
 
 describe('User API Integration Tests', () => {
-  let users: UserType[] = []
+  let users: UserProps.Model[] = []
 
   describe('POST /users', () => {
     it('should create a new user and return status 201', async () => {
@@ -61,7 +61,7 @@ describe('User API Integration Tests', () => {
 
       const response = await request(app)
         .put(`/users/${userId}`)
-        .send({ name: 'Ricardo Rodrigues Neto', email: 'ricardo@example.com', password: 'newpassword' })
+        .send({ name: 'Ricardo Rodrigues Neto', email: 'nilowiski@example.com', password: 'newpassword' })
 
       expect(response.status).toBe(201)
       expect(response.body).toEqual({ message: 'User updated successfully' })

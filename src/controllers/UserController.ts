@@ -8,7 +8,7 @@ class UserController {
     const { name, email, password } = req.body
 
     try {
-      await this.userService.create({ email, name, password, id: "" })
+      await this.userService.create({ email, name, password })
       return res.status(201).json({ message: "User created successfully" })
     } catch (error) {
       return res.status(500).json({ error })

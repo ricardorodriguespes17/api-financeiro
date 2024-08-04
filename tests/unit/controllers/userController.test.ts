@@ -38,7 +38,7 @@ describe('UserController tests', () => {
 
       expect(response.status).toBe(201)
       expect(response.body).toEqual({ message: 'User created successfully' })
-      expect(mockUserService.prototype.create).toHaveBeenCalledWith({ id: "", name: 'John Doe', email: 'john@example.com', password: 'password' })
+      expect(mockUserService.prototype.create).toHaveBeenCalledWith({ name: 'John Doe', email: 'john@example.com', password: 'password' })
     })
 
     it('should return status 500 on error', async () => {
