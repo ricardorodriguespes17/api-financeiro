@@ -1,5 +1,5 @@
 import { UserType } from "../../src/@types/UserType"
-import UserController from "../../src/controller/UserController"
+import UserController from "../../src/controllers/UserController"
 import { IORM } from "../../src/orm/IORM"
 import ORMFactory from "../../src/orm/ORMFactory"
 

@@ -1,6 +1,6 @@
 import request from "supertest"
 import app from "../../src/app"
-import UserController from "../../src/controller/UserController"
+import UserController from "../../src/controllers/UserController"
 
 jest.mock("../../src/controller/UserController")
 
