@@ -1,12 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import { IORM } from "./IORM";
 
-class PrismaORM<Model, CreateModel, UpdateModel> implements IORM<Model, CreateModel, UpdateModel> {
-  private prisma: PrismaClient;
+class PrismaORM<Model, CreateModel> implements IORM<Model, CreateModel> {
   private model: any;
 
   constructor(model: any) {
-    this.prisma = new PrismaClient();
     this.model = model;
   }
 
@@ -14,7 +11,7 @@ class PrismaORM<Model, CreateModel, UpdateModel> implements IORM<Model, CreateMo
     return this.model.create({ data });
   }
 
-  async update(id: string, data: UpdateModel): Promise<Model> {
+  async update(id: string, data: CreateModel): Promise<Model> {
     return this.model.update({ where: { id }, data });
   }
 

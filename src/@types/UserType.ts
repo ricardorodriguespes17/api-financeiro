@@ -11,16 +11,12 @@ export namespace UserProps {
     email: string
     password: string
   }
-
-  export type UpdateModel = {
-    id: string
-  } & UserProps.CreateModel
 }
 
 export interface User {
   findAllUsers: () => Promise<UserProps.Model[]>
   findUserById: (id: string) => Promise<UserProps.Model | null>
   createUser: (data: UserProps.CreateModel) => Promise<UserProps.Model>
-  updateUser: (data: UserProps.UpdateModel) => Promise<UserProps.Model>
+  updateUser: (data: UserProps.Model) => Promise<UserProps.Model>
   deleteUser: (id: string) => Promise<void>
 }

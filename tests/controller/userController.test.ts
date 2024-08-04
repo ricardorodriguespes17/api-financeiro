@@ -14,7 +14,7 @@ const mockUser: UserProps.Model = {
 
 describe("UserController", () => {
   let userController: UserController
-  let userORM: jest.Mocked<IORM<UserProps.Model, UserProps.CreateModel, UserProps.UpdateModel>>
+  let userORM: jest.Mocked<IORM<UserProps.Model, UserProps.CreateModel>>
 
   beforeEach(() => {
     userORM = {

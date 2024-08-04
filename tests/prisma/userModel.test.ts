@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-describe("User model", () => {
+describe("User model tests", () => {
   beforeAll(async () => {
     // Limpar a coleção de usuários antes de começar os testes
     await prisma.user.deleteMany()

@@ -1,6 +1,6 @@
-export interface IORM<Model, CreateModel, UpdateModel> {
+export interface IORM<Model, CreateModel> {
   create(data: CreateModel): Promise<Model>;
-  update(id: string, data: UpdateModel): Promise<Model>;
+  update(id: string, data: CreateModel): Promise<Model>;
   delete(id: string): Promise<void>;
   findById(id: string): Promise<Model>;
   findAll(): Promise<Model[]>;
