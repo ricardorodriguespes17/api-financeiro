@@ -3,7 +3,6 @@ import UserController from "../controller/UserController"
 import validate from "../validators/validate"
 import { 
   createUserValidators, 
-  deleteUserValidators, 
   updateUserValidators 
 } from "../validators/userValidators"
 
@@ -54,7 +53,7 @@ router.put(`/${path}/:id`, validate(updateUserValidators), async (req: Request, 
   }
 })
 
-router.delete(`/${path}/:id`, validate(deleteUserValidators), async (req: Request, res: Response) => {
+router.delete(`/${path}/:id`, async (req: Request, res: Response) => {
   const { id } = req.params
 
   try {
