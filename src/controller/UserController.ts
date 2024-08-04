@@ -1,22 +1,22 @@
-import { User, UserProps } from "../@types/UserType";
+import { UserType } from "../@types/UserType";
 import ormConfig from "../config/orm.config";
-import { IORM } from "../orm/IORM";
+import { CreateModel, IORM } from "../orm/IORM";
 import ORMFactory from "../orm/ORMFactory";
 
-class UserController implements User {
+class UserController {
   private ormFactory: ORMFactory
-  private userORM: IORM<UserProps.Model, UserProps.CreateModel>
+  private userORM: IORM<UserType>
 
   constructor() {
     this.ormFactory = new ORMFactory()
-    this.userORM = this.ormFactory.getORM<UserProps.Model, UserProps.CreateModel>(ormConfig.orm, "User")
+    this.userORM = this.ormFactory.getORM<UserType>(ormConfig.orm, "User")
   }
 
-  createUser(data: UserProps.CreateModel): Promise<UserProps.Model> {
+  createUser(data: CreateModel<UserType>): Promise<UserType> {
     return this.userORM.create(data)
   }
 
-  updateUser(data: UserProps.Model) {
+  updateUser(data: UserType) {
     return this.userORM.update(data.id, { email: data.email, name: data.name, password: data.password })
   }
 

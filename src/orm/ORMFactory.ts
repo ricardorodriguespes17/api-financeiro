@@ -12,19 +12,19 @@ class ORMFactory {
     this.prisma = new PrismaClient();
   }
 
-  getORM<Model, CreateModel>(ormType: ORMType, entity: Entity): IORM<Model, CreateModel> {
+  getORM<Model>(ormType: ORMType, entity: Entity): IORM<Model> {
     switch (ormType) {
       case 'Prisma':
-        return this.getPrismaORM<Model, CreateModel>(entity);
+        return this.getPrismaORM<Model>(entity);
       default:
         throw new Error('ORM type not supported');
     }
   }
 
-  private getPrismaORM<Model, CreateModel>(entity: Entity): PrismaORM<Model, CreateModel> {
+  private getPrismaORM<Model>(entity: Entity): PrismaORM<Model> {
     switch (entity) {
       case 'User':
-        return new PrismaORM<Model, CreateModel>(this.prisma.user);
+        return new PrismaORM<Model>(this.prisma.user);
       default:
         throw new Error('Entity not supported');
     }

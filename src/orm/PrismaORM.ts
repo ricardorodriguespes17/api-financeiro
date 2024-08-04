@@ -1,17 +1,17 @@
-import { IORM } from "./IORM";
+import { CreateModel, IORM } from "./IORM";
 
-class PrismaORM<Model, CreateModel> implements IORM<Model, CreateModel> {
+class PrismaORM<Model> implements IORM<Model> {
   private model: any;
 
   constructor(model: any) {
     this.model = model;
   }
 
-  async create(data: CreateModel): Promise<Model> {
+  async create(data: CreateModel<Model>): Promise<Model> {
     return this.model.create({ data });
   }
 
-  async update(id: string, data: CreateModel): Promise<Model> {
+  async update(id: string, data: CreateModel<Model>): Promise<Model> {
     return this.model.update({ where: { id }, data });
   }
 
