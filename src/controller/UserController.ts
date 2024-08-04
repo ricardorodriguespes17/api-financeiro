@@ -1,4 +1,5 @@
 import { User, UserProps } from "../@types/UserType";
+import ormConfig from "../config/orm";
 import { IORM } from "../orm/IORM";
 import ORMFactory from "../orm/ORMFactory";
 
@@ -8,7 +9,7 @@ class UserController implements User {
 
   constructor() {
     this.ormFactory = new ORMFactory()
-    this.userORM = this.ormFactory.getORM<UserProps.Model, UserProps.CreateModel, UserProps.UpdateModel>("Prisma", "User")
+    this.userORM = this.ormFactory.getORM<UserProps.Model, UserProps.CreateModel, UserProps.UpdateModel>(ormConfig.orm, "User")
   }
 
   createUser(data: UserProps.CreateModel): Promise<UserProps.Model> {

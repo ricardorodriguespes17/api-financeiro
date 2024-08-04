@@ -1,9 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 import PrismaORM from './PrismaORM';
 import { IORM } from './IORM';
-import { UserProps } from '../@types/UserType';
+import { ORMType } from '../@types/ormType';
 
-type ORMType = 'Prisma';
 type Entity = 'User';
 
 class ORMFactory {
