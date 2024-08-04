@@ -1,7 +1,7 @@
-export interface IORM<T> {
-  create(data: T): Promise<T>;
-  update(id: string, data: T): Promise<T>;
-  delete(id: string): Promise<T>;
-  findById(id: string): Promise<T | null>;
-  findAll(): Promise<T[]>;
+export interface IORM<Model, CreateModel, UpdateModel> {
+  create(data: CreateModel): Promise<Model>;
+  update(id: string, data: UpdateModel): Promise<Model>;
+  delete(id: string): Promise<void>;
+  findById(id: string): Promise<Model>;
+  findAll(): Promise<Model[]>;
 }

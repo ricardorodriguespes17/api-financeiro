@@ -1,11 +1,11 @@
-import { UserType } from "../../src/@types/UserType"
+import { UserProps } from "../../src/@types/UserType"
 import UserController from "../../src/controller/UserController"
 import { IORM } from "../../src/orm/IORM"
 import ORMFactory from "../../src/orm/ORMFactory"
 
 jest.mock("../../src/orm/ORMFactory")
 
-const mockUser: UserType = {
+const mockUser: UserProps.Model = {
   id: "1",
   name: "Test User",
   email: "test@example.com",
@@ -14,7 +14,7 @@ const mockUser: UserType = {
 
 describe("UserController", () => {
   let userController: UserController
-  let userORM: jest.Mocked<IORM<UserType>>
+  let userORM: jest.Mocked<IORM<UserProps.Model, UserProps.CreateModel, UserProps.UpdateModel>>
 
   beforeEach(() => {
     userORM = {

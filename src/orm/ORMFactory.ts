@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import PrismaORM from './PrismaORM';
 import { IORM } from './IORM';
+import { UserProps } from '../@types/UserType';
 
 type ORMType = 'Prisma';
 type Entity = 'User';
@@ -12,19 +13,19 @@ class ORMFactory {
     this.prisma = new PrismaClient();
   }
 
-  getORM<T>(ormType: ORMType, entity: Entity): IORM<T> {
+  getORM<Model, CreateModel, UpdateModel>(ormType: ORMType, entity: Entity): IORM<Model, CreateModel, UpdateModel> {
     switch (ormType) {
       case 'Prisma':
-        return this.getPrismaORM<T>(entity);
+        return this.getPrismaORM<Model, CreateModel, UpdateModel>(entity);
       default:
         throw new Error('ORM type not supported');
     }
   }
 
-  private getPrismaORM<T>(entity: Entity): PrismaORM<T> {
+  private getPrismaORM<Model, CreateModel, UpdateModel>(entity: Entity): PrismaORM<Model, CreateModel, UpdateModel> {
     switch (entity) {
       case 'User':
-        return new PrismaORM<T>(this.prisma.user);
+        return new PrismaORM<Model, CreateModel, UpdateModel>(this.prisma.user);
       default:
         throw new Error('Entity not supported');
     }
