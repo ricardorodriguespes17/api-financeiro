@@ -57,13 +57,13 @@ describe('User Routes tests', () => {
     const updatedUser = { id: '1', name: 'John Smith', email: 'johnsmith@example.com', password: 'newpassword123' }
     mockedUserController.prototype.updateUser.mockResolvedValue(updatedUser)
 
-    const response = await request(app).put('/users').send(updatedUser)
+    const response = await request(app).put(`/users/${updatedUser.id}}`).send(updatedUser)
 
     expect(response.status).toBe(201)
     expect(response.body).toEqual({ message: 'User updated successfully' })
   })
 
-  it('should return 400 if ID is missing in update', async () => {
+  it('should return error if ID is missing in update', async () => {
     const response = await request(app)
       .put('/users')
       .send({
@@ -71,21 +71,19 @@ describe('User Routes tests', () => {
         email: 'john.doe.updated@example.com',
         password: 'newpassword123'
       })
-    expect(response.status).toBe(400)
-    expect(response.body).toHaveProperty('errors')
+    expect(response.status).toBe(404)
   })
 
   it('should delete a user', async () => {
     mockedUserController.prototype.deleteUser.mockResolvedValue(undefined)
-    const response = await request(app).delete('/users').send({ id: '1' })
+    const response = await request(app).delete('/users/1').send({ id: '1' })
 
     expect(response.status).toBe(204)
   })
 
-  it('should return 400 if ID is missing in delete', async () => {
+  it('should return error if ID is missing in delete', async () => {
     const response = await request(app)
       .delete('/users')
-    expect(response.status).toBe(400)
-    expect(response.body).toHaveProperty('errors')
+    expect(response.status).toBe(404)
   })
 })

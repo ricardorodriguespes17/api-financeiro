@@ -42,7 +42,7 @@ router.post(`/${path}`, validate(createUserValidators), async (req: Request, res
   }
 })
 
-router.put(`/${path}`, validate(updateUserValidators), async (req: Request, res: Response) => {
+router.put(`/${path}/:id`, validate(updateUserValidators), async (req: Request, res: Response) => {
   const { name, email, password } = req.body
   const { id } = req.params
 
@@ -54,7 +54,7 @@ router.put(`/${path}`, validate(updateUserValidators), async (req: Request, res:
   }
 })
 
-router.delete(`/${path}`, validate(deleteUserValidators), async (req: Request, res: Response) => {
+router.delete(`/${path}/:id`, validate(deleteUserValidators), async (req: Request, res: Response) => {
   const { id } = req.params
 
   try {
