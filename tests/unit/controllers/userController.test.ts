@@ -1,18 +1,15 @@
 import request from 'supertest'
 import express, { Application } from 'express'
-import UserController from '../../src/controllers/UserController'
-import UserService from '../../src/services/UserService'
+import UserController from '../../../src/controllers/UserController'
+import UserService from '../../../src/services/UserService'
 
-// Mock UserService
-jest.mock('../../src/services/UserService')
+jest.mock('../../../src/services/UserService')
 
 const app: Application = express()
 app.use(express.json())
 
-// Create a new instance of UserController
 const userController = new UserController()
 
-// Assign the mocked methods to UserService
 const mockUserService = UserService as jest.MockedClass<typeof UserService>
 mockUserService.prototype.create = jest.fn()
 mockUserService.prototype.update = jest.fn()

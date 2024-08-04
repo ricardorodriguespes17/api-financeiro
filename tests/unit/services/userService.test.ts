@@ -1,9 +1,9 @@
-import { UserType } from "../../src/@types/UserType"
-import { OrmInterface } from "../../src/orm/ormInterface"
-import ORMFactory from "../../src/orm/ORMFactory"
-import UserService from "../../src/services/UserService"
+import { UserType } from "../../../src/@types/UserType"
+import { OrmInterface } from "../../../src/orm/ormInterface"
+import ORMFactory from "../../../src/orm/ORMFactory"
+import UserService from "../../../src/services/UserService"
 
-jest.mock("../../src/orm/ORMFactory")
+jest.mock("../../../src/orm/ORMFactory")
 
 const mockUser: UserType = {
   id: "1",
