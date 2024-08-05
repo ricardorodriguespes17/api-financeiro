@@ -16,8 +16,8 @@ class BoardService {
     return this.userORM.create(data)
   }
 
-  update = (data: BoardProps.UpdateModel) => {
-    return this.userORM.update(data.id, { title: data.title, description: data.description })
+  update = (id: string, data: BoardProps.CreateModel) => {
+    return this.userORM.update(id, data)
   }
 
   delete = (id: string) => {

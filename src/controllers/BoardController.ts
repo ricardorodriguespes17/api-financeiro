@@ -8,7 +8,7 @@ class BoardController {
     const { title, description } = req.body
 
     try {
-      await this.boardService.create({ title, description })
+      await this.boardService.create({ title, description, collections: [], wallets: [], transactions: [] })
       return res.status(201).json({ message: "Board created successfully" })
     } catch (error) {
       return res.status(500).json({ error })
@@ -16,11 +16,11 @@ class BoardController {
   }
 
   updateBoard = async (req: Request, res: Response) => {
-    const { title, description } = req.body
+    const { title, description, collections, wallets, transactions } = req.body
     const { id } = req.params
 
     try {
-      await this.boardService.update({ id, title, description })
+      await this.boardService.update(id, { title, description, collections, wallets, transactions })
       return res.status(201).json({ message: "Board updated successfully" })
     } catch (error) {
       return res.status(500).json({ error })
