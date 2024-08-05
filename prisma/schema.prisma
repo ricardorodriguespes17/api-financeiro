@@ -12,4 +12,62 @@ model User {
   name String
   email String @unique
   password String
+  boards Board[]
+}
+
+model Board {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String?
+  transactions Transaction[]
+  balances Balance[]
+
+  owner User @relation(fields: [ownerId], references: [id])
+  ownerId String @db.ObjectId
+}
+
+model Collection {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String?
+  day Int
+  isPaid Boolean
+
+  transactions Transaction[]
+}
+
+model Transaction {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String?
+  value Float
+  day Int
+  isPaid Boolean
+  type Int
+
+  category Category @relation(fields: [categoryId], references: [id])
+  categoryId String @db.ObjectId
+
+  collection Collection @relation(fields: [collectionId], references: [id])
+  collectionId String @db.ObjectId
+
+  board Board @relation(fields: [boardId], references: [id])
+  boardId String @db.ObjectId
+}
+
+model Balance {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  description String?
+  value Float
+
+  board Board @relation(fields: [boardId], references: [id])
+  boardId String @db.ObjectId
+}
+
+model Category {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+
+  Transaction Transaction[]
 }

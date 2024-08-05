@@ -3,7 +3,7 @@ import PrismaORM from './PrismaORM';
 import { OrmInterface } from './ormInterface';
 import { ORMType } from '../@types/ormType';
 
-type Entity = 'User';
+type Entity = 'User' | 'Board';
 
 class ORMFactory {
   private prisma: PrismaClient;
