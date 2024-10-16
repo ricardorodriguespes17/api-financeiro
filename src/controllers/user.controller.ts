@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import UserService from "../services/user.service"
-import { CreateUserType } from "../@types/user.types"
+import { CreateUserType, UpdateUserType } from "../@types/user.types"
 
 class UserController {
   private userService = new UserService()
@@ -33,6 +33,24 @@ class UserController {
 
     try {
       await this.userService.createUser(data)
+      res.status(201).json({ message: "User created successfully" })
+    } catch (error) {
+      res.status(500).json({ message: error })
+    }
+  }
+
+  async updateUser(req: Request, res: Response) {
+    const { name, birthdate, email } = req.body
+    const id = req.params.id
+
+    const data: UpdateUserType = {
+      name,
+      birthdate,
+      email,
+    }
+
+    try {
+      await this.userService.updateUser(id, data)
       res.status(201).json({ message: "User created successfully" })
     } catch (error) {
       res.status(500).json({ message: error })
