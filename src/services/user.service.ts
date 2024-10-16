@@ -1,5 +1,6 @@
 import { CreateUserType, UserType } from "../@types/user.types"
 import UserRepository from "../repositories/user.repository"
+import encryptPassword from "../utils/encryptPassword"
 
 class UserService {
   private userRepository = new UserRepository()
@@ -29,11 +30,20 @@ class UserService {
   }
 
   async createUser(data: CreateUserType) {
-    return this.userRepository.create(data)
+    const encodePassword = await encryptPassword(data.password)
+
+    return this.userRepository.create({
+      ...data,
+      password: encodePassword
+    })
   }
 
   async updateUser(id: string, data: UserType) {
     return this.userRepository.update(id, data)
+  }
+
+  async updateUserPassword(id: string, password: string) {
+
   }
 
   async deleteUser(id: string) {
