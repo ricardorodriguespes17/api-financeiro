@@ -1,4 +1,4 @@
-import { UserType } from "../@types/user.types"
+import { CreateUserType, UserType } from "../@types/user.types"
 import UserRepository from "../repositories/user.repository"
 
 class UserService {
@@ -28,7 +28,7 @@ class UserService {
     return user
   }
 
-  async createUser(data: UserType) {
+  async createUser(data: CreateUserType) {
     return this.userRepository.create(data)
   }
 
