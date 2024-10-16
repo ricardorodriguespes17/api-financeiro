@@ -1,4 +1,4 @@
-import { CreateUserType, UserType } from "../@types/user.types"
+import { CreateUserType, UpdateUserType, UserType } from "../@types/user.types"
 import UserRepository from "../repositories/user.repository"
 import encryptPassword from "../utils/encryptPassword"
 
@@ -38,7 +38,7 @@ class UserService {
     })
   }
 
-  async updateUser(id: string, data: UserType) {
+  async updateUser(id: string, data: UpdateUserType) {
     return this.userRepository.update(id, data)
   }
 

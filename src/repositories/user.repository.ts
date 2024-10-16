@@ -1,5 +1,5 @@
 import prisma from "../config/prisma"
-import { CreateUserType } from "../@types/user.types"
+import { CreateUserType, UpdateUserType } from "../@types/user.types"
 
 class UserRepository {
   async findAll() {
@@ -18,7 +18,7 @@ class UserRepository {
     return await prisma.user.create({ data })
   }
 
-  async update(id: string, data: CreateUserType) {
+  async update(id: string, data: UpdateUserType) {
     return await prisma.user.update({
       where: { id },
       data
