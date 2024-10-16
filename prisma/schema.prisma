@@ -6,3 +6,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @unique
+  name      String
+  password  String
+  birthdate String
+  createdAt DateTime @default(now())
+  boards    Board[]
+}
+
+model Board {
+  id            String         @id @default(uuid()) @db.Uuid
+  initialValue  Float
+  transferences Transference[]
+  User          User           @relation(fields: [userId], references: [id])
+  userId        String         @db.Uuid
+}
+
+model Transference {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  value       String
+  expireDay   Int
+  description String?
+  type        String
+  Board       Board   @relation(fields: [boardId], references: [id])
+  boardId     String  @db.Uuid
+}
