@@ -32,6 +32,12 @@ class UserService {
   async createUser(data: CreateUserType) {
     const encodePassword = await encryptPassword(data.password)
 
+    const user = await this.getUserByEmail(data.email)
+
+    if(user) {
+      throw new Error("Exists an user with same email")
+    }
+
     return this.userRepository.create({
       ...data,
       password: encodePassword
@@ -39,6 +45,12 @@ class UserService {
   }
 
   async updateUser(id: string, data: UpdateUserType) {
+    const user = await this.getUserByEmail(data.email)
+
+    if(user) {
+      throw new Error("Exists an user with same email")
+    }
+
     return this.userRepository.update(id, data)
   }
 

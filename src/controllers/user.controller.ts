@@ -34,12 +34,16 @@ class UserController {
     }
 
     try {
-
       await userService.createUser(data)
       res.status(201).json({ message: "User created successfully" })
     } catch (error) {
-      console.log(error)
-      res.status(500).json({ message: "Internal Error" })
+      const message = (error as Error).message
+
+      if (message === "Exists an user with same email") {
+        res.status(400).json({ message })
+      } else {
+        res.status(500).json({ message: "Internal Error" })
+      }
     }
   }
 
@@ -58,7 +62,13 @@ class UserController {
       await userService.updateUser(id, data)
       res.status(201).json({ message: "User updated successfully" })
     } catch (error) {
-      res.status(500).json({ message: "Internal Error" })
+      const message = (error as Error).message
+
+      if (message === "Exists an user with same email") {
+        res.status(400).json({ message })
+      } else {
+        res.status(500).json({ message: "Internal Error" })
+      }
     }
   }
 }
