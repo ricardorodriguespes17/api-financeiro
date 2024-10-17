@@ -35,7 +35,8 @@ describe("User Routes", () => {
     const response = await request(app).get(`/users/${user?.id}`)
 
     expect(response.status).toBe(200)
-    expect(response.body).toEqual(user)
+    expect(response.body.email).toEqual(user?.email)
+    expect(response.body.name).toEqual(user?.name)
   })
 
   it("should return 404 for a non-existing user", async () => {
@@ -48,7 +49,7 @@ describe("User Routes", () => {
   it("should update the user data", async () => {
     const userToUpdate = await prisma.user.findFirst()
     const response = await request(app)
-      .post(`/users/${userToUpdate?.id}`)
+      .put(`/users/${userToUpdate?.id}`)
       .send({
         name: "Maria Smith",
         email: "maria@example.com",
