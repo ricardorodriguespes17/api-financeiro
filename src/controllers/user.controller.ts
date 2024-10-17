@@ -12,13 +12,7 @@ class UserController {
       const user = await userService.getUserById(req.params.id)
       res.status(200).json(user)
     } catch (error) {
-      const message = (error as Error).message
-
-      if (message === "User not found") {
-        res.status(404).json({ message })
-      } else {
-        res.status(500).json({ message: "Internal Error" })
-      }
+      res.status(404).json({ message: "User not found" })
     }
   }
 
@@ -60,7 +54,7 @@ class UserController {
     try {
 
       await userService.updateUser(id, data)
-      res.status(201).json({ message: "User updated successfully" })
+      res.status(200).json({ message: "User updated successfully" })
     } catch (error) {
       const message = (error as Error).message
 
