@@ -28,7 +28,6 @@ class UserValidator {
   async updateUser(req: Request, res: Response, next: NextFunction) {
     const { error } = updateUserSchema.validate(req.body)
 
-    console.log(error)
     if (error?.details) {
       res.status(400).json({ message: error.details[0].message })
     } else {
