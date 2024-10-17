@@ -2,5 +2,5 @@ import { Board } from "@prisma/client"
 
 export type BoardType = Board
 
-export type CreateBoardType = Omit<BoardType, "id">
-export type UpdateBoardType = CreateBoardType
+export type CreateBoardType = BoardType
+export type UpdateBoardType = Omit<BoardType, "id">
