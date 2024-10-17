@@ -17,7 +17,7 @@ class UserController {
       if (message === "User not found") {
         res.status(404).json({ message })
       } else {
-        res.status(500).json({ message: error })
+        res.status(500).json({ message: "Internal Error" })
       }
     }
   }
@@ -39,7 +39,7 @@ class UserController {
       res.status(201).json({ message: "User created successfully" })
     } catch (error) {
       console.log(error)
-      res.status(500).json({ message: error })
+      res.status(500).json({ message: "Internal Error" })
     }
   }
 
@@ -56,9 +56,9 @@ class UserController {
     try {
 
       await userService.updateUser(id, data)
-      res.status(201).json({ message: "User created successfully" })
+      res.status(201).json({ message: "User updated successfully" })
     } catch (error) {
-      res.status(500).json({ message: error })
+      res.status(500).json({ message: "Internal Error" })
     }
   }
 }
