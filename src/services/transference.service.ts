@@ -13,7 +13,7 @@ class TransferenceService {
   }
 
   async updateTransference(id: string, data: UpdateTransferenceType) {
-    const transference = this.transferenceRepository.findById(id)
+    const transference = await this.transferenceRepository.findById(id)
 
     if(!transference) {
       throw new Error("Transference not found")
@@ -23,7 +23,7 @@ class TransferenceService {
   }
 
   async deleteTransference(id: string) {
-    const transference = this.transferenceRepository.findById(id)
+    const transference = await this.transferenceRepository.findById(id)
 
     if(!transference) {
       throw new Error("Transference not found")
