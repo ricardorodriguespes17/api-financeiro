@@ -10,7 +10,7 @@ class TransferenceController {
   }
 
   async getTransferencesByBoard(req: Request, res: Response) {
-    const { boardId } = req.body
+    const { boardId } = req.params
 
     try {
       const transferences = await this.transferenceService.getTransferencesByBoard(boardId)

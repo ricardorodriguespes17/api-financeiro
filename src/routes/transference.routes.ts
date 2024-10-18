@@ -3,7 +3,7 @@ import transferenceController from "../controllers/transference.controller"
 
 const transferenceRouter = Router()
 
-transferenceRouter.get("/transference", transferenceController.getTransferencesByBoard)
+transferenceRouter.get("/transference/:boardId", transferenceController.getTransferencesByBoard)
 transferenceRouter.post("/transference", transferenceController.createTransference)
 transferenceRouter.put("/transference/:id", transferenceController.updateTransference)
 transferenceRouter.delete("/transference/:id", transferenceController.deleteTransference)
