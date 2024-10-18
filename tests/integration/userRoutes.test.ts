@@ -23,7 +23,7 @@ describe("User Routes", () => {
       })
 
     expect(response.status).toBe(201)
-    expect(response.body).toEqual({ message: "User created successfully" })
+    expect(response.body).toEqual({ message: "Usuário criado com sucesso" })
 
     const user = await prisma.user.findUnique({
       where: { email: "john@example.com" },
@@ -44,7 +44,7 @@ describe("User Routes", () => {
     const response = await request(app).get("/users/999")
 
     expect(response.status).toBe(404)
-    expect(response.body.message).toBe("User not found")
+    expect(response.body.message).toBe("Usuário não encontrado")
   })
 
   it("should update the user data", async () => {
@@ -58,7 +58,7 @@ describe("User Routes", () => {
       })
 
     expect(response.status).toBe(200)
-    expect(response.body).toEqual({ message: "User updated successfully" })
+    expect(response.body).toEqual({ message: "Usuário atualizado com sucesso" })
 
     const user = await prisma.user.findUnique({
       where: { email: "maria@example.com" },

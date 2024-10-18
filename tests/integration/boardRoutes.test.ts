@@ -49,7 +49,7 @@ describe("Board Routes", () => {
       .send(newBoard)
 
     expect(response.status).toBe(201)
-    expect(response.body.message).toBe("Board created successfully")
+    expect(response.body.message).toBe("Quadro criado com sucesso")
   })
 
   it("should get board by ID", async () => {
@@ -72,7 +72,7 @@ describe("Board Routes", () => {
       .send(updatedBoard)
 
     expect(response.status).toBe(200)
-    expect(response.body.message).toBe("Board updated successfully")
+    expect(response.body.message).toBe("Quadro atualizado com sucesso")
   })
 
   it("should delete a board", async () => {
@@ -81,13 +81,13 @@ describe("Board Routes", () => {
       .set("Authorization", "Bearer validToken")
 
     expect(response.status).toBe(200)
-    expect(response.body.message).toBe("Board deleted successfully")
+    expect(response.body.message).toBe("Quadro deletado com sucesso")
   })
 
   it("should return 403 if token is not provided", async () => {
     const response = await request(app).get("/boards")
 
     expect(response.status).toBe(403)
-    expect(response.body.message).toBe("Token not provided")
+    expect(response.body.message).toBe("Token não enviado")
   })
 })

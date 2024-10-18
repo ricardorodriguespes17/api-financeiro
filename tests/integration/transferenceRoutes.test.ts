@@ -68,7 +68,7 @@ describe("Transference Routes", () => {
       .send(newTransference)
 
     expect(response.status).toBe(201)
-    expect(response.body.message).toBe("Transference created successfully")
+    expect(response.body.message).toBe("Transferência criada com sucesso")
   })
 
   it("should update an existing transference", async () => {
@@ -89,7 +89,7 @@ describe("Transference Routes", () => {
       .send(updateTransference)
 
     expect(response.status).toBe(200)
-    expect(response.body.message).toBe("Transference updated successfully")
+    expect(response.body.message).toBe("Transferência atualizada com sucesso")
   })
 
   it("should delete a transference", async () => {
@@ -100,13 +100,13 @@ describe("Transference Routes", () => {
       .set("Authorization", "Bearer validToken")
 
     expect(response.status).toBe(200)
-    expect(response.body.message).toBe("Transference deleted successfully")
+    expect(response.body.message).toBe("Transferência deletada com sucesso")
   })
 
   it("should return 403 if token is not provided", async () => {
     const response = await request(app).get("/transferences/2024-10")
 
     expect(response.status).toBe(403)
-    expect(response.body.message).toBe("Token not provided")
+    expect(response.body.message).toBe("Token não enviado")
   })
 })

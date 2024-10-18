@@ -47,12 +47,12 @@ describe('BoardController', () => {
 
     it('should handle internal error', async () => {
       req.body.userId = 'user-123'
-      boardServiceMock.getAllBoards.mockRejectedValue(new Error('Internal Error'))
+      boardServiceMock.getAllBoards.mockRejectedValue(new Error("Erro interno"))
 
       await boardController.getAllBoards(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(500)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Internal Error' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Erro interno" })
     })
   })
 
@@ -71,12 +71,12 @@ describe('BoardController', () => {
 
     it('should return 404 if board is not found', async () => {
       req.params = { id: '2024-10' }
-      boardServiceMock.getBoardById.mockRejectedValue(new Error('Board not found'))
+      boardServiceMock.getBoardById.mockRejectedValue(new Error("Quadro não encontrado"))
 
       await boardController.getBoardById(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(404)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Board not found' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Quadro não encontrado" })
     })
   })
 
@@ -93,17 +93,17 @@ describe('BoardController', () => {
         initialValue: 0
       })
       expect(res.status).toHaveBeenCalledWith(201)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Board created successfully' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Quadro criado com sucesso" })
     })
 
     it('should handle internal error on create', async () => {
       req.body = { id: '2024-10', userId: 'user123' }
-      boardServiceMock.createBoard.mockRejectedValue(new Error('Internal Error'))
+      boardServiceMock.createBoard.mockRejectedValue(new Error("Erro interno"))
 
       await boardController.createBoard(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(500)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Internal Error' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Erro interno" })
     })
   })
 
@@ -120,18 +120,18 @@ describe('BoardController', () => {
         userId: 'user123'
       })
       expect(res.status).toHaveBeenCalledWith(200)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Board updated successfully' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Quadro atualizado com sucesso" })
     })
 
     it('should return 404 if board to update is not found', async () => {
       req.params = { id: '2024-10' }
       req.body = { initialValue: 500, userId: 'user123' }
-      boardServiceMock.updateBoard.mockRejectedValue(new Error('Board not found'))
+      boardServiceMock.updateBoard.mockRejectedValue(new Error("Quadro não encontrado"))
 
       await boardController.updateBoard(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(404)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Board not found' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Quadro não encontrado" })
     })
   })
 
@@ -144,17 +144,17 @@ describe('BoardController', () => {
 
       expect(boardServiceMock.deleteBoard).toHaveBeenCalledWith('2024-10')
       expect(res.status).toHaveBeenCalledWith(200)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Board deleted successfully' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Quadro deletado com sucesso" })
     })
 
     it('should return 404 if board to delete is not found', async () => {
       req.params = { id: '2024-10' }
-      boardServiceMock.deleteBoard.mockRejectedValue(new Error('Board not found'))
+      boardServiceMock.deleteBoard.mockRejectedValue(new Error("Quadro não encontrado"))
 
       await boardController.deleteBoard(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(404)
-      expect(res.json).toHaveBeenCalledWith({ message: 'Board not found' })
+      expect(res.json).toHaveBeenCalledWith({ message: "Quadro não encontrado" })
     })
   })
 })
