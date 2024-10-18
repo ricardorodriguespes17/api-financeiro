@@ -7,6 +7,7 @@ const getAllBoardsSchema = Joi.object({
 
 const createBoardSchema = Joi.object({
   id: Joi.string().length(7).required(),
+  userId: Joi.string().required()
 })
 
 const updateBoardSchema = Joi.object({
@@ -28,7 +29,7 @@ class BoardValidator {
   async createBoard(req: Request, res: Response, next: NextFunction) {
     const { error } = createBoardSchema.validate(req.body)
 
-    if (error) {
+    if (error?.details) {
       res.status(400).json({ message: error.details[0].message })
     } else {
       next()
