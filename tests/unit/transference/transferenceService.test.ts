@@ -80,7 +80,7 @@ describe('TransferenceService', () => {
 
     transferenceRepositoryMock.findById.mockResolvedValue(null)
 
-    await expect(transferenceService.updateTransference(transferenceId, updateData)).rejects.toThrow('Transference not found')
+    await expect(transferenceService.updateTransference(transferenceId, updateData)).rejects.toThrow('Transferência não encontrada')
   })
 
   it('should delete a transference by ID', async () => {
@@ -109,6 +109,6 @@ describe('TransferenceService', () => {
 
     transferenceRepositoryMock.findById.mockResolvedValue(null)
 
-    await expect(transferenceService.deleteTransference(transferenceId)).rejects.toThrow('Transference not found')
+    await expect(transferenceService.deleteTransference(transferenceId)).rejects.toThrow('Transferência não encontrada')
   })
 })

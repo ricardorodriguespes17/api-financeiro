@@ -42,7 +42,7 @@ describe('BoardService', () => {
 
     boardRepositoryMock.findById.mockResolvedValue(null)
 
-    await expect(boardService.getBoardById(boardId)).rejects.toThrow('Board not found')
+    await expect(boardService.getBoardById(boardId)).rejects.toThrow('Quadro não encontrado')
   })
 
   it('should create a new board', async () => {
@@ -77,7 +77,7 @@ describe('BoardService', () => {
 
     boardRepositoryMock.findById.mockResolvedValue(null)
 
-    await expect(boardService.updateBoard(boardId, updateData)).rejects.toThrow('Board not found')
+    await expect(boardService.updateBoard(boardId, updateData)).rejects.toThrow('Quadro não encontrado')
   })
 
   it('should delete a board by ID', async () => {
@@ -98,6 +98,6 @@ describe('BoardService', () => {
 
     boardRepositoryMock.findById.mockResolvedValue(null)
 
-    await expect(boardService.deleteBoard(boardId)).rejects.toThrow('Board not found')
+    await expect(boardService.deleteBoard(boardId)).rejects.toThrow('Quadro não encontrado')
   })
 })

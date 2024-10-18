@@ -31,20 +31,20 @@ describe("authMiddleware", () => {
     authMiddleware(req as Request, res as Response, next)
 
     expect(res.status).toHaveBeenCalledWith(403)
-    expect(res.json).toHaveBeenCalledWith({ message: "Token not provided" })
+    expect(res.json).toHaveBeenCalledWith({ message: "Token não enviado" })
     expect(next).not.toHaveBeenCalled()
   })
 
   it("should return 403 if token is invalid", () => {
     (req.header as jest.Mock).mockReturnValueOnce("Bearer invalidToken");
     (jwt.verify as jest.Mock).mockImplementationOnce(() => {
-      throw new Error("Invalid token")
+      throw new Error("Token inválido")
     })
 
     authMiddleware(req as Request, res as Response, next)
 
     expect(res.status).toHaveBeenCalledWith(403)
-    expect(res.json).toHaveBeenCalledWith({ message: "Invalid token" })
+    expect(res.json).toHaveBeenCalledWith({ message: "Token inválido" })
     expect(next).not.toHaveBeenCalled()
   })
 

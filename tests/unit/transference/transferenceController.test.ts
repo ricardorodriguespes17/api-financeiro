@@ -46,12 +46,12 @@ describe("TransferenceController", () => {
 
     it("should handle internal error", async () => {
       req.params = { boardId: "2024-10" }
-      transferenceServiceMock.getTransferencesByBoard.mockRejectedValue(new Error("Internal Error"))
+      transferenceServiceMock.getTransferencesByBoard.mockRejectedValue(new Error("Erro interno"))
 
       await transferenceController.getTransferencesByBoard(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(500)
-      expect(res.json).toHaveBeenCalledWith({ message: "Internal Error" })
+      expect(res.json).toHaveBeenCalledWith({ message: "Erro interno" })
     })
   })
 
@@ -82,12 +82,12 @@ describe("TransferenceController", () => {
         type: "income",
         value: 100,
       }
-      transferenceServiceMock.createTransference.mockRejectedValue(new Error("Internal Error"))
+      transferenceServiceMock.createTransference.mockRejectedValue(new Error("Erro interno"))
 
       await transferenceController.createTransference(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(500)
-      expect(res.json).toHaveBeenCalledWith({ message: "Internal Error" })
+      expect(res.json).toHaveBeenCalledWith({ message: "Erro interno" })
     })
   })
 
@@ -131,12 +131,12 @@ describe("TransferenceController", () => {
         type: "expense",
         value: 50,
       }
-      transferenceServiceMock.updateTransference.mockRejectedValue(new Error("Transference not found"))
+      transferenceServiceMock.updateTransference.mockRejectedValue(new Error("Transferência não encontrada"))
 
       await transferenceController.updateTransference(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(404)
-      expect(res.json).toHaveBeenCalledWith({ message: "Transference not found" })
+      expect(res.json).toHaveBeenCalledWith({ message: "Transferência não encontrada" })
     })
   })
 
@@ -154,12 +154,12 @@ describe("TransferenceController", () => {
     it("should return 404 if transference to delete is not found", async () => {
       const id = "1"
       req.params = { id }
-      transferenceServiceMock.deleteTransference.mockRejectedValue(new Error("Transference not found"))
+      transferenceServiceMock.deleteTransference.mockRejectedValue(new Error("Transferência não encontrada"))
 
       await transferenceController.deleteTransference(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(404)
-      expect(res.json).toHaveBeenCalledWith({ message: "Transference not found" })
+      expect(res.json).toHaveBeenCalledWith({ message: "Transferência não encontrada" })
     })
   })
 })
