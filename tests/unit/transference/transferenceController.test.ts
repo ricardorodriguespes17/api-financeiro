@@ -1,19 +1,19 @@
 import { Request, Response } from "express"
-import { createTransferenceController } from "../../../src/controllers/transference.controller"
 import TransferenceService from "../../../src/services/transference.service"
 import { CreateTransferenceType, TransferenceType, UpdateTransferenceType } from "../../../src/@types/transference.types"
+import TransferenceController from "../../../src/controllers/transference.controller"
 
 jest.mock("../../../src/services/transference.service")
 
 describe("TransferenceController", () => {
   let transferenceServiceMock: jest.Mocked<TransferenceService>
-  let transferenceController: ReturnType<typeof createTransferenceController>
+  let transferenceController: TransferenceController
   let req: Partial<Request>
   let res: Partial<Response>
 
   beforeEach(() => {
+    transferenceController = new TransferenceController()
     transferenceServiceMock = new TransferenceService() as jest.Mocked<TransferenceService>
-    transferenceController = createTransferenceController(transferenceServiceMock)
 
     req = {
       body: {},
