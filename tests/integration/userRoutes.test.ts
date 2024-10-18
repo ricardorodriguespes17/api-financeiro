@@ -4,8 +4,8 @@ import prisma from "../../src/config/prisma"
 
 describe("User Routes", () => {
   beforeAll(async () => {
-    await prisma.user.deleteMany({})
     await prisma.board.deleteMany({})
+    await prisma.user.deleteMany({})
   })
 
   afterAll(async () => {
