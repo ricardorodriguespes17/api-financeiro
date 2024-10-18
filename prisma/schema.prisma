@@ -28,7 +28,7 @@ model Board {
 model Transference {
   id          String  @id @default(uuid()) @db.Uuid
   name        String
-  value       String
+  value       Float
   expireDay   Int
   description String?
   type        String
