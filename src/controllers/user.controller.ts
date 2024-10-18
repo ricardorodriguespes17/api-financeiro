@@ -33,8 +33,8 @@ class UserController {
     } catch (error) {
       const message = (error as Error).message
 
-      if (message === "Exists an user with same email") {
-        res.status(400).json({ message: "Já existe um usuário com esse email" })
+      if (message === "Já existe usuário com esse email") {
+        res.status(400).json({ message })
       } else {
         res.status(500).json({ message: "Erro interno" })
       }
@@ -58,8 +58,8 @@ class UserController {
     } catch (error) {
       const message = (error as Error).message
 
-      if (message === "Exists an user with same email") {
-        res.status(400).json({ message: "Já existe um usuário com esse email" })
+      if (message === "Já existe usuário com esse email") {
+        res.status(400).json({ message })
       } else {
         res.status(500).json({ message: "Erro interno" })
       }

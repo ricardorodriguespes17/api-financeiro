@@ -21,7 +21,7 @@ class TransferenceController {
       const transferences = await this.transferenceService.getTransferencesByBoard(boardId)
       res.status(200).json(transferences)
     } catch (error) {
-      res.status(500).json({ message: "Internal Error" })
+      res.status(500).json({ message: "Erro interno" })
     }
   }
 
@@ -41,7 +41,7 @@ class TransferenceController {
       await this.transferenceService.createTransference(data)
       res.status(201).json({ message: "Transferência criada com sucesso" })
     } catch (error) {
-      res.status(500).json({ message: "Internal Error" })
+      res.status(500).json({ message: "Erro interno" })
     }
   }
 
@@ -64,8 +64,8 @@ class TransferenceController {
     } catch (error) {
       const message = (error as Error).message
 
-      if (message === "Transference not found") {
-        res.status(404).json({ message: "Transferência não encontrada" })
+      if (message === "Transferência não encontrada") {
+        res.status(404).json({ message })
       } else {
         res.status(500).json({ message: "Erro interno" })
       }
@@ -81,8 +81,8 @@ class TransferenceController {
     } catch (error) {
       const message = (error as Error).message
 
-      if (message === "Transference not found") {
-        res.status(404).json({ message: "Transferência não encontrada" })
+      if (message === "Transferência não encontrada") {
+        res.status(404).json({ message })
       } else {
         res.status(500).json({ message: "Erro interno" })
       }

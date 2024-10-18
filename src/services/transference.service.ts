@@ -16,7 +16,7 @@ class TransferenceService {
     const transference = await this.transferenceRepository.findById(id)
 
     if(!transference) {
-      throw new Error("Transference not found")
+      throw new Error("Transferência não encontrada")
     }
 
     return this.transferenceRepository.update(id, data)
@@ -26,7 +26,7 @@ class TransferenceService {
     const transference = await this.transferenceRepository.findById(id)
 
     if(!transference) {
-      throw new Error("Transference not found")
+      throw new Error("Transferência não encontrada")
     }
 
     return this.transferenceRepository.delete(id)

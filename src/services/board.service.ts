@@ -12,7 +12,7 @@ class BoardService {
     const board = await this.boardRepository.findById(id)
 
     if(!board) {
-      throw new Error("Board not found")
+      throw new Error("Quadro não encontrado")
     }
 
     return board

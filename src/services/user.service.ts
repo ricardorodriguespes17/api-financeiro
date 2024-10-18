@@ -13,7 +13,7 @@ class UserService {
     const user = await this.userRepository.findById(id)
 
     if(!user) {
-      throw new Error("User not found")
+      throw new Error("Usuário não encontrado")
     }
 
     return user
@@ -31,7 +31,7 @@ class UserService {
     const user = await this.getUserByEmail(data.email)
 
     if(user) {
-      throw new Error("Exists an user with same email")
+      throw new Error("Já existe usuário com esse email")
     }
 
     return this.userRepository.create({
@@ -44,7 +44,7 @@ class UserService {
     const user = await this.getUserByEmail(data.email)
 
     if(user) {
-      throw new Error("Exists an user with same email")
+      throw new Error("Já existe usuário com esse email")
     }
 
     return this.userRepository.update(id, data)

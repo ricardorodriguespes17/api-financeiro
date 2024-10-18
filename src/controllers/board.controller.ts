@@ -69,8 +69,8 @@ class BoardController {
     } catch (error) {
       const message = (error as Error).message
 
-      if (message === "Board not found") {
-        res.status(404).json({ message: "Quadro não encontrado" })
+      if (message === "Quadro não encontrado") {
+        res.status(404).json({ message })
       } else {
         res.status(500).json({ message: "Erro interno" })
       }
@@ -87,10 +87,10 @@ class BoardController {
     } catch (error) {
       const message = (error as Error).message
 
-      if (message === "Board not found") {
+      if (message === "Quadro não encontrado") {
         res.status(404).json({ message })
       } else {
-        res.status(500).json({ message: "Internal Error" })
+        res.status(500).json({ message: "Erro interno" })
       }
     }
   }
