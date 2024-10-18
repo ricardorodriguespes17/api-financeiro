@@ -12,8 +12,8 @@ describe("TransferenceController", () => {
   let res: Partial<Response>
 
   beforeEach(() => {
-    transferenceController = new TransferenceController()
     transferenceServiceMock = new TransferenceService() as jest.Mocked<TransferenceService>
+    transferenceController = new TransferenceController(transferenceServiceMock)
 
     req = {
       body: {},
