@@ -34,7 +34,7 @@ describe("TransferenceController", () => {
       const transferences: TransferenceType[] = [
         { id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense" }
       ]
-      req.body.boardId = "2024-10"
+      req.params = { boardId: "2024-10" }
       transferenceServiceMock.getTransferencesByBoard.mockResolvedValue(transferences)
 
       await transferenceController.getTransferencesByBoard(req as Request, res as Response)
@@ -45,7 +45,7 @@ describe("TransferenceController", () => {
     })
 
     it("should handle internal error", async () => {
-      req.body.boardId = "2024-10"
+      req.params = { boardId: "2024-10" }
       transferenceServiceMock.getTransferencesByBoard.mockRejectedValue(new Error("Internal Error"))
 
       await transferenceController.getTransferencesByBoard(req as Request, res as Response)
