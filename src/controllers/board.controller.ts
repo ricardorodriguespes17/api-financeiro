@@ -3,15 +3,21 @@ import BoardService from "../services/board.service"
 import { CreateBoardType, UpdateBoardType } from "../@types/board.types"
 
 class BoardController {
-  private boardService: BoardService
+  private boardService: BoardService;
 
   constructor(boardService?: BoardService) {
     this.boardService = boardService || new BoardService()
+
+    this.getAllBoards = this.getAllBoards.bind(this)
+    this.getBoardById = this.getBoardById.bind(this)
+    this.createBoard = this.createBoard.bind(this)
+    this.updateBoard = this.updateBoard.bind(this)
+    this.deleteBoard = this.deleteBoard.bind(this)
   }
 
   async getAllBoards(req: Request, res: Response) {
     const { userId } = req.body
-
+    
     try {
       const boards = await this.boardService.getAllBoards(userId)
       res.status(200).json(boards)
