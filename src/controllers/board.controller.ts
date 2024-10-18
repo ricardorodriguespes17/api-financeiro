@@ -83,7 +83,7 @@ class BoardController {
 
     try {
       await this.boardService.deleteBoard(id)
-      res.status(200).json({ message: "Board deleted successfully" })
+      res.status(200).json({ message: "Quadro deletado com sucesso" })
     } catch (error) {
       const message = (error as Error).message
 

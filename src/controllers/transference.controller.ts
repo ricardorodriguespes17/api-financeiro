@@ -39,7 +39,7 @@ class TransferenceController {
 
     try {
       await this.transferenceService.createTransference(data)
-      res.status(201).json({ message: "Transference created successfully" })
+      res.status(201).json({ message: "Transferência criada com sucesso" })
     } catch (error) {
       res.status(500).json({ message: "Internal Error" })
     }

@@ -7,7 +7,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const token = req.header('Authorization')?.replace('Bearer ', '')
 
   if (!token) {
-    res.status(403).json({ message: "Token not provided" })
+    res.status(403).json({ message: "Token não enviado" })
   } else {
     try {
       const decoded = jwt.verify(token, jwtSecret)
@@ -16,7 +16,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
       next()
     } catch (error) {
-      res.status(403).json({ message: "Invalid token" })
+      res.status(403).json({ message: "Token inválido" })
     }
   }
 }

@@ -2,18 +2,42 @@ import { NextFunction, Request, Response } from "express"
 import Joi from "joi"
 
 const getAllBoardsSchema = Joi.object({
-  userId: Joi.string().required().message("'userId' é obrigatório")
+  userId: Joi
+    .required()
+    .messages({
+      "any.required": "'userId' é obrigatório"
+    })
 })
 
 const createBoardSchema = Joi.object({
-  id: Joi.string().length(7).required().message("'id' é obrigatório"),
-  userId: Joi.string().required().message("'userId' é obrigatório")
+  id: Joi.string()
+    .length(7)
+    .required()
+    .messages({
+      "string.length": "id inválido",
+      "any.required": "'id' é obrigatório"
+    }),
+  userId: Joi
+    .required()
+    .messages({
+      "any.required": "'userId' é obrigatório"
+    })
 })
 
 const updateBoardSchema = Joi.object({
-  initialValue: Joi.number().min(0).message("Valo inválido"),
-  userId: Joi.string().required().message("'userId' é obrigatório")
+  initialValue: Joi.number()
+    .min(0)
+    .messages({
+      "number.min": "Valor inválido",
+      "any.required": "Valor é obrigatório"
+    }),
+  userId: Joi
+    .required()
+    .messages({
+      "any.required": "'userId' é obrigatório"
+    })
 })
+
 
 class BoardValidator {
   async getAllBoards(req: Request, res: Response, next: NextFunction) {
@@ -35,7 +59,7 @@ class BoardValidator {
       next()
     }
   }
-  
+
   async updateBoard(req: Request, res: Response, next: NextFunction) {
     const { error } = updateBoardSchema.validate(req.body)
 
