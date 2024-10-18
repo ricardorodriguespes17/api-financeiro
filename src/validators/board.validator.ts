@@ -2,17 +2,17 @@ import { NextFunction, Request, Response } from "express"
 import Joi from "joi"
 
 const getAllBoardsSchema = Joi.object({
-  userId: Joi.string().required()
+  userId: Joi.string().required().message("'userId' é obrigatório")
 })
 
 const createBoardSchema = Joi.object({
-  id: Joi.string().length(7).required(),
-  userId: Joi.string().required()
+  id: Joi.string().length(7).required().message("'id' é obrigatório"),
+  userId: Joi.string().required().message("'userId' é obrigatório")
 })
 
 const updateBoardSchema = Joi.object({
-  initialValue: Joi.number().min(0),
-  userId: Joi.string().required()
+  initialValue: Joi.number().min(0).message("Valo inválido"),
+  userId: Joi.string().required().message("'userId' é obrigatório")
 })
 
 class BoardValidator {

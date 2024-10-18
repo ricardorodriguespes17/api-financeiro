@@ -9,9 +9,9 @@ const createUserSchema = Joi.object({
 })
 
 const updateUserSchema = Joi.object({
-  name: Joi.string().min(3),
-  email: Joi.string().email(),
-  birthdate: Joi.string()
+  name: Joi.string().min(3).message("Nome inválido"),
+  email: Joi.string().email().message("Email inválido"),
+  birthdate: Joi.string().message("Data de nascimento inválida")
 })
 
 class UserValidator {

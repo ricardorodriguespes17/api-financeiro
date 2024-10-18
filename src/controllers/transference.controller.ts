@@ -60,14 +60,14 @@ class TransferenceController {
 
     try {
       await this.transferenceService.updateTransference(id, data)
-      res.status(200).json({ message: "Transference updated successfully" })
+      res.status(200).json({ message: "Transferência atualizada com sucesso" })
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Transference not found") {
-        res.status(404).json({ message })
+        res.status(404).json({ message: "Transferência não encontrada" })
       } else {
-        res.status(500).json({ message: "Internal Error" })
+        res.status(500).json({ message: "Erro interno" })
       }
     }
   }
@@ -77,14 +77,14 @@ class TransferenceController {
 
     try {
       await this.transferenceService.deleteTransference(id)
-      res.status(200).json({ message: "Transference deleted successfully" })
+      res.status(200).json({ message: "Transferência deletada com sucesso" })
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Transference not found") {
-        res.status(404).json({ message })
+        res.status(404).json({ message: "Transferência não encontrada" })
       } else {
-        res.status(500).json({ message: "Internal Error" })
+        res.status(500).json({ message: "Erro interno" })
       }
     }
   }

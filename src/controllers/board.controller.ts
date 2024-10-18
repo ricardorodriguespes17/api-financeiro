@@ -22,7 +22,7 @@ class BoardController {
       const boards = await this.boardService.getAllBoards(userId)
       res.status(200).json(boards)
     } catch (error) {
-      res.status(500).json({ message: "Internal Error" })
+      res.status(500).json({ message: "Erro interno" })
     }
   }
 
@@ -33,7 +33,7 @@ class BoardController {
       const board = await this.boardService.getBoardById(id)
       res.status(200).json(board)
     } catch (error) {
-      res.status(404).json({ message: "Board not found" })
+      res.status(404).json({ message: "Quadro não encontrado" })
     }
   }
 
@@ -48,9 +48,9 @@ class BoardController {
 
     try {
       await this.boardService.createBoard(data)
-      res.status(201).json({ message: "Board created successfully" })
+      res.status(201).json({ message: "Quadro criado com sucesso" })
     } catch (error) {
-      res.status(500).json({ message: "Internal Error" })
+      res.status(500).json({ message: "Erro interno" })
     }
   }
 
@@ -65,14 +65,14 @@ class BoardController {
 
     try {
       await this.boardService.updateBoard(id, data)
-      res.status(200).json({ message: "Board updated successfully" })
+      res.status(200).json({ message: "Quadro atualizado com sucesso" })
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Board not found") {
-        res.status(404).json({ message })
+        res.status(404).json({ message: "Quadro não encontrado" })
       } else {
-        res.status(500).json({ message: "Internal Error" })
+        res.status(500).json({ message: "Erro interno" })
       }
 
     }

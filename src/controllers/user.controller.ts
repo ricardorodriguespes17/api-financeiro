@@ -12,7 +12,7 @@ class UserController {
       const user = await userService.getUserById(req.params.id)
       res.status(200).json(user)
     } catch (error) {
-      res.status(404).json({ message: "User not found" })
+      res.status(404).json({ message: "Usuário não encontrado" })
     }
   }
 
@@ -29,14 +29,14 @@ class UserController {
 
     try {
       await userService.createUser(data)
-      res.status(201).json({ message: "User created successfully" })
+      res.status(201).json({ message: "Usuário criado com sucesso" })
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Exists an user with same email") {
-        res.status(400).json({ message })
+        res.status(400).json({ message: "Já existe um usuário com esse email" })
       } else {
-        res.status(500).json({ message: "Internal Error" })
+        res.status(500).json({ message: "Erro interno" })
       }
     }
   }
@@ -54,14 +54,14 @@ class UserController {
     try {
 
       await userService.updateUser(id, data)
-      res.status(200).json({ message: "User updated successfully" })
+      res.status(200).json({ message: "Usuário atualizado com sucesso" })
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Exists an user with same email") {
-        res.status(400).json({ message })
+        res.status(400).json({ message: "Já existe um usuário com esse email" })
       } else {
-        res.status(500).json({ message: "Internal Error" })
+        res.status(500).json({ message: "Erro interno" })
       }
     }
   }
