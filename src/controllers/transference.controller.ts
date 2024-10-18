@@ -3,10 +3,15 @@ import TransferenceService from "../services/transference.service"
 import { CreateTransferenceType, UpdateTransferenceType } from "../@types/transference.types"
 
 class TransferenceController {
-  private transferenceService = new TransferenceService()
+  private transferenceService: TransferenceService
 
-  constructor(transferenceService: TransferenceService) {
-    this.transferenceService = transferenceService
+  constructor(transferenceService?: TransferenceService) {
+    this.transferenceService = transferenceService || new TransferenceService()
+
+    this.getTransferencesByBoard = this.getTransferencesByBoard.bind(this)
+    this.createTransference = this.createTransference.bind(this)
+    this.updateTransference = this.updateTransference.bind(this)
+    this.deleteTransference = this.deleteTransference.bind(this)
   }
 
   async getTransferencesByBoard(req: Request, res: Response) {
@@ -34,6 +39,7 @@ class TransferenceController {
 
     try {
       await this.transferenceService.createTransference(data)
+      res.status(201).json({ message: "Transference created successfully" })
     } catch (error) {
       res.status(500).json({ message: "Internal Error" })
     }
@@ -54,6 +60,7 @@ class TransferenceController {
 
     try {
       await this.transferenceService.updateTransference(id, data)
+      res.status(200).json({ message: "Transference updated successfully" })
     } catch (error) {
       const message = (error as Error).message
 
@@ -70,6 +77,7 @@ class TransferenceController {
 
     try {
       await this.transferenceService.deleteTransference(id)
+      res.status(200).json({ message: "Transference deleted successfully" })
     } catch (error) {
       const message = (error as Error).message
 
@@ -82,9 +90,4 @@ class TransferenceController {
   }
 }
 
-//Para testes unitários
-export const createTransferenceController = (transferenceService: TransferenceService) => {
-  return new TransferenceController(transferenceService);
-}
-
-export default new TransferenceController(new TransferenceService())
+export default TransferenceController
