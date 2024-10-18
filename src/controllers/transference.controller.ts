@@ -5,6 +5,10 @@ import { CreateTransferenceType, UpdateTransferenceType } from "../@types/transf
 class TransferenceController {
   private transferenceService = new TransferenceService()
 
+  constructor(transferenceService: TransferenceService) {
+    this.transferenceService = transferenceService
+  }
+
   async getTransferencesByBoard(req: Request, res: Response) {
     const { boardId } = req.body
 
@@ -78,4 +82,9 @@ class TransferenceController {
   }
 }
 
-export default new TransferenceController()
+//Para testes unitários
+export const createTransferenceController = (transferenceService: TransferenceService) => {
+  return new TransferenceController(transferenceService);
+}
+
+export default new TransferenceController(new TransferenceService())
