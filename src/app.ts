@@ -2,6 +2,7 @@ import express, { Request, Response } from "express"
 import userRouter from "./routes/user.routes"
 import boardRouter from "./routes/board.routes"
 import transferenceRouter from "./routes/transference.routes"
+import authRouter from "./routes/auth.routes"
 import cors from "cors"
 
 const app = express()
@@ -15,6 +16,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use(userRouter)
 app.use(boardRouter)
 app.use(transferenceRouter)
+app.use(authRouter)
 
 
 export default app
