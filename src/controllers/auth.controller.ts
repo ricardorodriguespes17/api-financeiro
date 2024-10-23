@@ -9,6 +9,7 @@ class AuthController {
     this.authService = authService || new AuthService()
 
     this.login = this.login.bind(this)
+    this.refreshToken = this.refreshToken.bind(this)
   }
 
   async login(req: Request, res: Response) {
@@ -32,13 +33,13 @@ class AuthController {
     const { refreshToken } = req.body
 
     try {
-      const accessToken = this.authService.verifyToken(refreshToken)
+      const accessToken = await this.authService.verifyToken(refreshToken)
       res.status(200).json({ accessToken })
     } catch (error) {
       const message = (error as Error).message
 
-      if (message) {
-        res.status(404).json({ message })
+      if (message === "jwt expired") {
+        res.status(404).json({ message: "Token expirado" })
       } else {
         res.status(500).json({ message: "Erro interno" })
       }

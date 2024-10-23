@@ -1,6 +1,6 @@
 import { LoginType } from "../@types/auth.types"
 import encryptPassword from "../utils/encryptPassword"
-import { generateAccessToken } from "../utils/generateToken"
+import { generateAccessToken, generateRefreshToken } from "../utils/generateToken"
 import verifyPassword from "../utils/verifyPassword"
 import UserService from "./user.service"
 import jwt from "jsonwebtoken"
@@ -25,7 +25,7 @@ class AuthService {
     }
 
     const accessToken = generateAccessToken(user.id)
-    const refreshToken = generateAccessToken(user.id)
+    const refreshToken = generateRefreshToken(user.id)
 
     return {
       accessToken,

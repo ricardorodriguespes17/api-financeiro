@@ -4,7 +4,7 @@ const jwtSecret = process.env.JWT_SECRET as string
 
 export const generateAccessToken = (userId: string) => {
   return jwt.sign({ userId }, jwtSecret, {
-    expiresIn: '1h',
+    expiresIn: 60,
   })
 }
 
