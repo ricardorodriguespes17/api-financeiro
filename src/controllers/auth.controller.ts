@@ -1,5 +1,4 @@
 import { Request, Response } from "express"
-import authService from "../services/auth.service"
 import AuthService from "../services/auth.service"
 
 class AuthController {
@@ -18,6 +17,23 @@ class AuthController {
     try {
       const tokens = await this.authService.login({ email, password })
       res.status(200).json(tokens)
+    } catch (error) {
+      const message = (error as Error).message
+
+      if (message) {
+        res.status(404).json({ message })
+      } else {
+        res.status(500).json({ message: "Erro interno" })
+      }
+    }
+  }
+
+  async logout(req: Request, res: Response) {
+    const { refreshToken } = req.body
+
+    try {
+      await this.authService.logout({ refreshToken })
+      res.status(204).json()
     } catch (error) {
       const message = (error as Error).message
 

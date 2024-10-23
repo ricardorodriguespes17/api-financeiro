@@ -1,7 +1,8 @@
-import { LoginType } from "../@types/auth.types"
+import { LoginType, LogoutType } from "../@types/auth.types"
 import encryptPassword from "../utils/encryptPassword"
 import { generateAccessToken, generateRefreshToken } from "../utils/generateToken"
 import verifyPassword from "../utils/verifyPassword"
+import BlacklistService from "./blacklist.service"
 import UserService from "./user.service"
 import jwt from "jsonwebtoken"
 
@@ -9,6 +10,7 @@ const jwtSecret = process.env.JWT_SECRET as string
 
 class AuthService {
   private userService = new UserService()
+  private blacklistService = new BlacklistService()
 
   async login(data: LoginType) {
     const user = await this.userService.getUserByEmail(data.email)
@@ -31,6 +33,10 @@ class AuthService {
       accessToken,
       refreshToken
     }
+  }
+
+  async logout(data: LogoutType) {
+    await this.blacklistService.createToken(data.refreshToken)
   }
 
   async verifyToken(token: string) {
