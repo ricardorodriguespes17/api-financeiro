@@ -8,6 +8,7 @@ class AuthController {
     this.authService = authService || new AuthService()
 
     this.login = this.login.bind(this)
+    this.logout = this.logout.bind(this)
     this.refreshToken = this.refreshToken.bind(this)
   }
 
