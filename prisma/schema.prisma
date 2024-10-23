@@ -35,3 +35,9 @@ model Transference {
   Board       Board   @relation(fields: [boardId], references: [id])
   boardId     String
 }
+
+model Blacklist {
+  id         String   @id @default(uuid()) @db.Uuid
+  token      String
+  includedIn DateTime @default(now())
+}
