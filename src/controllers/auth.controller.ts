@@ -27,6 +27,23 @@ class AuthController {
       }
     }
   }
+
+  async refreshToken(req: Request, res: Response) {
+    const { refreshToken } = req.body
+
+    try {
+      const accessToken = this.authService.verifyToken(refreshToken)
+      res.status(200).json({ accessToken })
+    } catch (error) {
+      const message = (error as Error).message
+
+      if (message) {
+        res.status(404).json({ message })
+      } else {
+        res.status(500).json({ message: "Erro interno" })
+      }
+    }
+  }
 }
 
 export default AuthController

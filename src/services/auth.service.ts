@@ -3,6 +3,9 @@ import encryptPassword from "../utils/encryptPassword"
 import { generateAccessToken } from "../utils/generateToken"
 import verifyPassword from "../utils/verifyPassword"
 import UserService from "./user.service"
+import jwt from "jsonwebtoken"
+
+const jwtSecret = process.env.JWT_SECRET as string
 
 class AuthService {
   private userService = new UserService()
@@ -28,6 +31,17 @@ class AuthService {
       accessToken,
       refreshToken
     }
+  }
+
+  async verifyToken(token: string) {
+    const decoded = jwt.verify(token, jwtSecret) as { userId: string }
+
+    if(decoded.userId) {
+      const accessToken = generateAccessToken(decoded.userId)
+      return accessToken
+    }
+
+    throw new Error("Token inválido")
   }
 }
 
