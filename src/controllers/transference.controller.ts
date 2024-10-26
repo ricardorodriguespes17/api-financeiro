@@ -38,10 +38,10 @@ class TransferenceController {
     }
 
     try {
-      await this.transferenceService.createTransference(data)
-      res.status(201).json({ message: "Transferência criada com sucesso" })
+      const createdTransference = await this.transferenceService.createTransference(data)
+      res.status(201).json(createdTransference)
     } catch (error) {
-      res.status(500).json({ message: "Erro interno" })
+      res.status(500).json({ message: "Falha ao criar a tranferência" })
     }
   }
 
@@ -59,15 +59,15 @@ class TransferenceController {
     }
 
     try {
-      await this.transferenceService.updateTransference(id, data)
-      res.status(200).json({ message: "Transferência atualizada com sucesso" })
+      const updatedTransference = await this.transferenceService.updateTransference(id, data)
+      res.status(200).json(updatedTransference)
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Transferência não encontrada") {
         res.status(404).json({ message })
       } else {
-        res.status(500).json({ message: "Erro interno" })
+        res.status(500).json({ message: "Falha ao atualizar os dados da tranferência" })
       }
     }
   }
@@ -77,14 +77,14 @@ class TransferenceController {
 
     try {
       await this.transferenceService.deleteTransference(id)
-      res.status(200).json({ message: "Transferência deletada com sucesso" })
+      res.status(204).send()
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Transferência não encontrada") {
         res.status(404).json({ message })
       } else {
-        res.status(500).json({ message: "Erro interno" })
+        res.status(500).json({ message: "Falha ao deletar a transferência" })
       }
     }
   }
