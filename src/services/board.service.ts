@@ -18,6 +18,17 @@ class BoardService {
     return board
   }
 
+  async getBoardByName(name: string, userId: string) {
+    const board = await this.boardRepository.findByName(name, userId)
+
+
+    if(!board) {
+      throw new Error("Quadro não encontrado")
+    }
+
+    return board
+  }
+
   async createBoard(data: CreateBoardType) {
     return this.boardRepository.create(data)
   }

@@ -10,12 +10,12 @@ const getAllBoardsSchema = Joi.object({
 })
 
 const createBoardSchema = Joi.object({
-  id: Joi.string()
+  name: Joi.string()
     .length(7)
     .required()
     .messages({
-      "string.length": "id inválido",
-      "any.required": "'id' é obrigatório"
+      "string.length": "nome inválido",
+      "any.required": "nome é obrigatório"
     }),
   userId: Joi
     .required()

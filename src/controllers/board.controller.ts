@@ -3,13 +3,14 @@ import BoardService from "../services/board.service"
 import { CreateBoardType, UpdateBoardType } from "../@types/board.types"
 
 class BoardController {
-  private boardService: BoardService;
+  private boardService: BoardService
 
   constructor(boardService?: BoardService) {
     this.boardService = boardService || new BoardService()
 
     this.getAllBoards = this.getAllBoards.bind(this)
     this.getBoardById = this.getBoardById.bind(this)
+    this.getBoardByName = this.getBoardByName.bind(this)
     this.createBoard = this.createBoard.bind(this)
     this.updateBoard = this.updateBoard.bind(this)
     this.deleteBoard = this.deleteBoard.bind(this)
@@ -17,7 +18,7 @@ class BoardController {
 
   async getAllBoards(req: Request, res: Response) {
     const { userId } = req.body
-    
+
     try {
       const boards = await this.boardService.getAllBoards(userId)
       res.status(200).json(boards)
@@ -37,11 +38,24 @@ class BoardController {
     }
   }
 
+  async getBoardByName(req: Request, res: Response) {
+    const { name } = req.params
+    const { userId } = req.body
+
+    try {
+      const board = await this.boardService.getBoardByName(name, userId)
+      res.status(200).json(board)
+    } catch (error) {
+      console.log(error)
+      res.status(404).json({ message: "Quadro não encontrado" })
+    }
+  }
+
   async createBoard(req: Request, res: Response) {
-    const { id, userId } = req.body
+    const { name, userId } = req.body
 
     const data: CreateBoardType = {
-      id,
+      name,
       userId,
       initialValue: 0
     }
@@ -50,6 +64,7 @@ class BoardController {
       await this.boardService.createBoard(data)
       res.status(201).json({ message: "Quadro criado com sucesso" })
     } catch (error) {
+      console.log(error)
       res.status(500).json({ message: "Erro interno" })
     }
   }

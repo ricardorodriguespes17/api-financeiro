@@ -10,6 +10,10 @@ class BoardRepository {
     return await prisma.board.findUnique({ where: { id } })
   }
 
+  async findByName(name: string, userId: string) {
+    return await prisma.board.findFirst({ where: { name, userId } })
+  }
+
   async create(data: CreateBoardType) {
     return await prisma.board.create({ data })
   }
