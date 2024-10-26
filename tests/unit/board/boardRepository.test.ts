@@ -19,19 +19,35 @@ describe('BoardRepository', () => {
 
   it('should find all boards for a given user ID', async () => {
     const userId = 'user-123'
-    const mockBoards: BoardType[] = [{ id: '2024-10', initialValue: 5, userId }, { id: '2024-11', initialValue: 0, userId }]
-    
+    const mockBoards: BoardType[] = [{
+      id: "1",
+      name: '2024-10',
+      initialValue: 0,
+      userId
+    },
+    {
+      id: "2",
+      name: '2024-11',
+      initialValue: 0,
+      userId
+    }]
+
     prismaMock.board.findMany.mockResolvedValue(mockBoards)
 
     const result = await boardRepository.findAll(userId)
-    
+
     expect(result).toEqual(mockBoards)
     expect(prismaMock.board.findMany).toHaveBeenCalledWith({ where: { userId } })
   })
 
   it('should find a board by ID', async () => {
     const boardId = '2024-10'
-    const mockBoard = { id: boardId, initialValue: 15, userId: 'user-123' }
+    const mockBoard = {
+      id: "1",
+      name: '2024-10',
+      initialValue: 0,
+      userId: "user-123"
+    }
 
     prismaMock.board.findUnique.mockResolvedValue(mockBoard)
 
@@ -42,9 +58,9 @@ describe('BoardRepository', () => {
   })
 
   it('should create a new board', async () => {
-    const mockBoard: CreateBoardType = { id: "2024-10", initialValue: 20, userId: 'user-123' }
+    const mockBoard: CreateBoardType = { name: "2024-10", initialValue: 20, userId: 'user-123' }
 
-    prismaMock.board.create.mockResolvedValue(mockBoard)
+    prismaMock.board.create.mockResolvedValue({ id: "1", ...mockBoard })
 
     const result = await boardRepository.create(mockBoard)
 
@@ -53,11 +69,11 @@ describe('BoardRepository', () => {
   })
 
   it('should update a board by ID', async () => {
-    const boardId = '2024-10'
+    const boardId = '1'
     const updateData: UpdateBoardType = { initialValue: 10, userId: 'user-123' }
-    const mockUpdatedBoard = { id: boardId, ...updateData }
+    const mockUpdatedBoard = { name: '2024-10', ...updateData }
 
-    prismaMock.board.update.mockResolvedValue(mockUpdatedBoard)
+    prismaMock.board.update.mockResolvedValue({ id: boardId, ...mockUpdatedBoard })
 
     const result = await boardRepository.update(boardId, updateData)
 
@@ -68,7 +84,12 @@ describe('BoardRepository', () => {
   it('should delete a board by ID', async () => {
     const boardId = 'board-123'
 
-    prismaMock.board.delete.mockResolvedValue({ id: boardId, initialValue: 0, userId: 'user-123' })
+    prismaMock.board.delete.mockResolvedValue({
+      id: boardId,
+      initialValue: 0,
+      name: "2024-1",
+      userId: 'user-123'
+    })
 
     const result = await boardRepository.delete(boardId)
 

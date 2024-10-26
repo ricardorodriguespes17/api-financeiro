@@ -32,8 +32,8 @@ describe('BoardController', () => {
   describe('getAllBoards', () => {
     it('should return all boards for a user', async () => {
       const boards: BoardType[] = [
-        { id: 'board1', initialValue: 0, userId: 'user-123' },
-        { id: 'board2', initialValue: 10, userId: 'user-123' },
+        { id: "1", name: '2024-10', initialValue: 0, userId: 'user-123' },
+        { id: "2", name: '2024-10', initialValue: 10, userId: 'user-123' },
       ]
       req.body.userId = 'user-123'
       boardServiceMock.getAllBoards.mockResolvedValue(boards)
@@ -58,7 +58,7 @@ describe('BoardController', () => {
 
   describe('getBoardById', () => {
     it('should return a board by id', async () => {
-      const board: BoardType = { id: '2024-10', initialValue: 5, userId: 'user-123' }
+      const board: BoardType = { id: "1", name: '2024-10', initialValue: 0, userId: 'user-123' }
       req.params = { id: '2024-10' }
       boardServiceMock.getBoardById.mockResolvedValue(board)
 
@@ -82,14 +82,19 @@ describe('BoardController', () => {
 
   describe('createBoard', () => {
     it('should create a new board', async () => {
-      req.body = { id: '2024-10', userId: 'user123' }
-      boardServiceMock.createBoard.mockResolvedValue({ id: '2024-10', initialValue: 0, userId: 'user123' })
+      req.body = { id: '2024-10', userId: 'user-123' }
+      boardServiceMock.createBoard.mockResolvedValue({
+        id: "1",
+        name: '2024-10',
+        initialValue: 0,
+        userId: 'user-123'
+      })
 
       await boardController.createBoard(req as Request, res as Response)
 
       expect(boardServiceMock.createBoard).toHaveBeenCalledWith({
         id: '2024-10',
-        userId: 'user123',
+        userId: 'user-123',
         initialValue: 0
       })
       expect(res.status).toHaveBeenCalledWith(201)
@@ -97,7 +102,7 @@ describe('BoardController', () => {
     })
 
     it('should handle internal error on create', async () => {
-      req.body = { id: '2024-10', userId: 'user123' }
+      req.body = { id: '2024-10', userId: 'user-123' }
       boardServiceMock.createBoard.mockRejectedValue(new Error("Erro interno"))
 
       await boardController.createBoard(req as Request, res as Response)
@@ -110,14 +115,19 @@ describe('BoardController', () => {
   describe('updateBoard', () => {
     it('should update an existing board', async () => {
       req.params = { id: '2024-10' }
-      req.body = { initialValue: 500, userId: 'user123' }
-      boardServiceMock.updateBoard.mockResolvedValue({ id: '2024-10', initialValue: 500, userId: 'user123' })
+      req.body = { initialValue: 500, userId: 'user-123' }
+      boardServiceMock.updateBoard.mockResolvedValue({ 
+        id: "1", 
+        name: '2024-10', 
+        initialValue: 0, 
+        userId: 'user-123' 
+      })
 
       await boardController.updateBoard(req as Request, res as Response)
 
       expect(boardServiceMock.updateBoard).toHaveBeenCalledWith('2024-10', {
         initialValue: 500,
-        userId: 'user123'
+        userId: 'user-123'
       })
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalledWith({ message: "Quadro atualizado com sucesso" })
@@ -125,7 +135,7 @@ describe('BoardController', () => {
 
     it('should return 404 if board to update is not found', async () => {
       req.params = { id: '2024-10' }
-      req.body = { initialValue: 500, userId: 'user123' }
+      req.body = { initialValue: 500, userId: 'user-123' }
       boardServiceMock.updateBoard.mockRejectedValue(new Error("Quadro não encontrado"))
 
       await boardController.updateBoard(req as Request, res as Response)
@@ -138,7 +148,12 @@ describe('BoardController', () => {
   describe('deleteBoard', () => {
     it('should delete a board by id', async () => {
       req.params = { id: '2024-10' }
-      boardServiceMock.deleteBoard.mockResolvedValue({ id: '2024-10', initialValue: 500, userId: 'user123' })
+      boardServiceMock.deleteBoard.mockResolvedValue({ 
+        id: "1", 
+        name: '2024-10', 
+        initialValue: 0, 
+        userId: 'user-123' 
+      })
 
       await boardController.deleteBoard(req as Request, res as Response)
 
