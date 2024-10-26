@@ -60,11 +60,10 @@ class BoardController {
     }
 
     try {
-      await this.boardService.createBoard(data)
-      res.status(201).json({ message: "Quadro criado com sucesso" })
+      const createdBoard = await this.boardService.createBoard(data)
+      res.status(201).json(createdBoard)
     } catch (error) {
-      console.log(error)
-      res.status(500).json({ message: "Erro interno" })
+      res.status(500).json({ message: "Falha ao criar o quadro" })
     }
   }
 
@@ -78,15 +77,15 @@ class BoardController {
     }
 
     try {
-      await this.boardService.updateBoard(id, data)
-      res.status(200).json({ message: "Quadro atualizado com sucesso" })
+      const updatedBoard = await this.boardService.updateBoard(id, data)
+      res.status(200).json(updatedBoard)
     } catch (error) {
       const message = (error as Error).message
 
       if (message === "Quadro não encontrado") {
         res.status(404).json({ message })
       } else {
-        res.status(500).json({ message: "Erro interno" })
+        res.status(500).json({ message: "Falha ao atualizar os dados do quadro" })
       }
 
     }
@@ -97,7 +96,7 @@ class BoardController {
 
     try {
       await this.boardService.deleteBoard(id)
-      res.status(200).json({ message: "Quadro deletado com sucesso" })
+      res.status(204).send()
     } catch (error) {
       const message = (error as Error).message
 
