@@ -15,10 +15,10 @@ describe('BoardService', () => {
 
   it('should get all boards for a user', async () => {
     const userId = 'user-123'
-    const mockBoards = [{ 
-      id: "1", 
-      name: '2024-10', 
-      initialValue: 0, 
+    const mockBoards = [{
+      id: "1",
+      name: '2024-10',
+      initialValue: 0,
       userId
     }]
 
@@ -32,11 +32,11 @@ describe('BoardService', () => {
 
   it('should get a board by ID', async () => {
     const boardId = '2024-10'
-    const mockBoard = { 
-      id: "1", 
-      name: '2024-10', 
-      initialValue: 0, 
-      userId: 'user-123' 
+    const mockBoard = {
+      id: "1",
+      name: '2024-10',
+      initialValue: 0,
+      userId: 'user-123'
     }
 
     boardRepositoryMock.findById.mockResolvedValue(mockBoard)
@@ -56,29 +56,28 @@ describe('BoardService', () => {
   })
 
   it('should create a new board', async () => {
-    const boardData: CreateBoardType = { 
-      name: '2024-10', 
-      initialValue: 0, 
-      userId: 'user-123' 
+    const boardData: CreateBoardType = {
+      name: '2024-10',
+      initialValue: 0,
+      userId: 'user-123'
     }
-    const mockBoard = { ...boardData }
-
-    boardRepositoryMock.create.mockResolvedValue({id: "1", ...mockBoard})
+    const mockedData = { id: "1", ...boardData }
+    boardRepositoryMock.create.mockResolvedValue(mockedData)
 
     const result = await boardService.createBoard(boardData)
 
-    expect(result).toEqual(mockBoard)
+    expect(result).toEqual(mockedData)
     expect(boardRepositoryMock.create).toHaveBeenCalledWith(boardData)
   })
 
   it('should update a board by ID', async () => {
     const boardId = '2024-10'
     const updateData: UpdateBoardType = { initialValue: 10, userId: 'user-123' }
-    const mockUpdatedBoard = { 
-      id: "1", 
-      name: '2024-10', 
-      initialValue: 0, 
-      userId: 'user-123' 
+    const mockUpdatedBoard = {
+      id: "1",
+      name: '2024-10',
+      initialValue: 0,
+      userId: 'user-123'
     }
 
     boardRepositoryMock.findById.mockResolvedValue(mockUpdatedBoard)
@@ -101,11 +100,11 @@ describe('BoardService', () => {
 
   it('should delete a board by ID', async () => {
     const boardId = '2024-10'
-    const mockBoard = { 
-      id: "1", 
-      name: '2024-10', 
-      initialValue: 0, 
-      userId: 'user-123' 
+    const mockBoard = {
+      id: "1",
+      name: '2024-10',
+      initialValue: 0,
+      userId: 'user-123'
     }
 
     boardRepositoryMock.findById.mockResolvedValue(mockBoard)

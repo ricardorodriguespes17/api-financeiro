@@ -58,22 +58,23 @@ describe('BoardRepository', () => {
   })
 
   it('should create a new board', async () => {
-    const mockBoard: CreateBoardType = { name: "2024-10", initialValue: 20, userId: 'user-123' }
+    const boardData: CreateBoardType = { name: "2024-10", initialValue: 20, userId: 'user-123' }
+    const mockBoard: BoardType = { id: "1", ...boardData }
 
-    prismaMock.board.create.mockResolvedValue({ id: "1", ...mockBoard })
+    prismaMock.board.create.mockResolvedValue(mockBoard)
 
-    const result = await boardRepository.create(mockBoard)
+    const result = await boardRepository.create(boardData)
 
     expect(result).toEqual(mockBoard)
-    expect(prismaMock.board.create).toHaveBeenCalledWith({ data: mockBoard })
+    expect(prismaMock.board.create).toHaveBeenCalledWith({ data: boardData })
   })
 
   it('should update a board by ID', async () => {
     const boardId = '1'
     const updateData: UpdateBoardType = { initialValue: 10, userId: 'user-123' }
-    const mockUpdatedBoard = { name: '2024-10', ...updateData }
+    const mockUpdatedBoard = { id: boardId, name: '2024-10', ...updateData }
 
-    prismaMock.board.update.mockResolvedValue({ id: boardId, ...mockUpdatedBoard })
+    prismaMock.board.update.mockResolvedValue(mockUpdatedBoard)
 
     const result = await boardRepository.update(boardId, updateData)
 
