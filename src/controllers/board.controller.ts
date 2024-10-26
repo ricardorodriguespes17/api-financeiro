@@ -46,7 +46,6 @@ class BoardController {
       const board = await this.boardService.getBoardByName(name, userId)
       res.status(200).json(board)
     } catch (error) {
-      console.log(error)
       res.status(404).json({ message: "Quadro não encontrado" })
     }
   }
