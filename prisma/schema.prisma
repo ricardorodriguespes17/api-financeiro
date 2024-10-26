@@ -18,7 +18,8 @@ model User {
 }
 
 model Board {
-  id            String         @unique
+  id            String         @id @default(uuid()) @db.Uuid
+  name          String
   initialValue  Float
   transferences Transference[]
   User          User           @relation(fields: [userId], references: [id])
@@ -33,7 +34,7 @@ model Transference {
   description String?
   type        String
   Board       Board   @relation(fields: [boardId], references: [id])
-  boardId     String
+  boardId     String  @db.Uuid
 }
 
 model Blacklist {
