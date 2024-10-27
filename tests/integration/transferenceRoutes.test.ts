@@ -26,7 +26,7 @@ describe("Transference Routes", () => {
     const user = await prisma.user.create({ data: userData })
 
     const boardData: CreateBoardType = {
-      id: "2024-10",
+      name: "2024-10",
       initialValue: 10,
       userId: user.id,
     }
