@@ -5,11 +5,5 @@
       "src": "/(.*)",
       "dest": "dist/src/index.js"
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "api/server.js"
-    }
   ]
 }
