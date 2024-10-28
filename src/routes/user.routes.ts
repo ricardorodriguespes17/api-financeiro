@@ -7,6 +7,7 @@ const router = Router()
 const userController = new UserController()
 const userValidator = new UserValidator()
 
+router.get("/users/profile", authMiddleware, userController.getUserById)
 router.get("/users/:id", authMiddleware, userController.getUserById)
 router.post("/users", userValidator.createUser, userController.createUser)
 router.put("/users/:id", authMiddleware, userValidator.updateUser, userController.updateUser)

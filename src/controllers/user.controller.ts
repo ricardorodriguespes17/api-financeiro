@@ -7,9 +7,10 @@ const userService = new UserService()
 class UserController {
 
   async getUserById(req: Request, res: Response) {
-    try {
+    const id = req.params.id || req.body.userId
 
-      const user = await userService.getUserById(req.params.id)
+    try {
+      const user = await userService.getUserById(id)
       res.status(200).json(user)
     } catch (error) {
       res.status(404).json({ message: "Usuário não encontrado" })
