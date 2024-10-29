@@ -32,6 +32,7 @@ model Transference {
   value       Float
   expireDay   Int
   description String?
+  isPaid      Boolean @default(false)
   type        String
   Board       Board   @relation(fields: [boardId], references: [id])
   boardId     String  @db.Uuid
