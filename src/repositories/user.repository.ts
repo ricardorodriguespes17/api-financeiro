@@ -40,7 +40,15 @@ class UserRepository {
   async update(id: string, data: UpdateUserType) {
     return await prisma.user.update({
       where: { id },
-      data
+      data,
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        birthdate: true,
+        createdAt: true,
+        password: false,
+      }
     })
   }
 

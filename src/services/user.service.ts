@@ -43,7 +43,7 @@ class UserService {
   async updateUser(id: string, data: UpdateUserType) {
     const user = await this.getUserByEmail(data.email)
 
-    if(user) {
+    if(user && user.id !== id) {
       throw new Error("Já existe usuário com esse email")
     }
 

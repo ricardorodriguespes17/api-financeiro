@@ -43,8 +43,7 @@ class UserController {
   }
 
   async updateUser(req: Request, res: Response) {
-    const { name, birthdate, email } = req.body
-    const id = req.params.id
+    const { name, birthdate, email, userId } = req.body
 
     const data: UpdateUserType = {
       name,
@@ -53,9 +52,8 @@ class UserController {
     }
 
     try {
-
-      await userService.updateUser(id, data)
-      res.status(200).json({ message: "Usuário atualizado com sucesso" })
+      const userUpdated = await userService.updateUser(userId, data)
+      res.status(200).json(userUpdated)
     } catch (error) {
       const message = (error as Error).message
 

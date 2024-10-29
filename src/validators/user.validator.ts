@@ -32,6 +32,12 @@ const createUserSchema = Joi.object({
 })
 
 const updateUserSchema = Joi.object({
+  userId: Joi.string()
+    .required()
+    .messages({
+      'string.userId': 'userId inválido',
+      'any.required': 'userId é obrigatório',
+    }),
   name: Joi.string()
     .min(3)
     .required()
@@ -52,7 +58,7 @@ const updateUserSchema = Joi.object({
       "any.required": "Data de nascimento é obrigatória",
       "string.base": "Data de nascimento inválida"
     })
-});
+})
 
 
 class UserValidator {
