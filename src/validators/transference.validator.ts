@@ -31,6 +31,11 @@ const createSchema = Joi.object({
       "any.required": "Tipo inválido",
       "any.only": "O tipo deve ser 'income' ou 'expense'"
     }),
+  isPaid: Joi.boolean()
+    .required()
+    .messages({
+      "any.required": "isPaid é obrigatório",
+    }),
   boardId: Joi.string()
     .required()
     .messages({

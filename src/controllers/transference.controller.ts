@@ -26,7 +26,7 @@ class TransferenceController {
   }
 
   async createTransference(req: Request, res: Response) {
-    const { boardId, description, expireDay, name, type, value } = req.body
+    const { boardId, description, expireDay, name, type, value, isPaid } = req.body
 
     const data: CreateTransferenceType = {
       boardId,
@@ -34,7 +34,8 @@ class TransferenceController {
       expireDay,
       name,
       type,
-      value
+      value,
+      isPaid
     }
 
     try {
@@ -47,7 +48,7 @@ class TransferenceController {
 
   async updateTransference(req: Request, res: Response) {
     const id = req.params.id
-    const { boardId, description, expireDay, name, type, value } = req.body
+    const { boardId, description, expireDay, name, type, value, isPaid } = req.body
 
     const data: UpdateTransferenceType = {
       boardId,
@@ -55,7 +56,8 @@ class TransferenceController {
       expireDay,
       name,
       type,
-      value
+      value,
+      isPaid
     }
 
     try {
