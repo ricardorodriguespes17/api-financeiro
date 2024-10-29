@@ -25,34 +25,34 @@ describe("authMiddleware", () => {
     jest.clearAllMocks()
   })
 
-  it("should return 403 if token is not provided", () => {
+  it("should return 401 if token is not provided", async () => {
     (req.header as jest.Mock).mockReturnValueOnce(null)
 
-    authMiddleware(req as Request, res as Response, next)
+    await authMiddleware(req as Request, res as Response, next)
 
-    expect(res.status).toHaveBeenCalledWith(403)
+    expect(res.status).toHaveBeenCalledWith(401)
     expect(res.json).toHaveBeenCalledWith({ message: "Token não enviado" })
     expect(next).not.toHaveBeenCalled()
   })
 
-  it("should return 403 if token is invalid", () => {
+  it("should return 401 if token is invalid", async () => {
     (req.header as jest.Mock).mockReturnValueOnce("Bearer invalidToken");
     (jwt.verify as jest.Mock).mockImplementationOnce(() => {
       throw new Error("Token inválido")
     })
 
-    authMiddleware(req as Request, res as Response, next)
+    await authMiddleware(req as Request, res as Response, next)
 
-    expect(res.status).toHaveBeenCalledWith(403)
+    expect(res.status).toHaveBeenCalledWith(401)
     expect(res.json).toHaveBeenCalledWith({ message: "Token inválido" })
     expect(next).not.toHaveBeenCalled()
   })
 
-  it("should call next if token is valid", () => {
+  it("should call next if token is valid", async () => {
     (req.header as jest.Mock).mockReturnValueOnce("Bearer validToken");
     (jwt.verify as jest.Mock).mockReturnValueOnce({ userId: "user123" })
 
-    authMiddleware(req as Request, res as Response, next)
+    await authMiddleware(req as Request, res as Response, next)
 
     expect(req.body.userId).toBe("user123")
     expect(next).toHaveBeenCalled()
