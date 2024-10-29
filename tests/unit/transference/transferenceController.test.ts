@@ -32,7 +32,16 @@ describe("TransferenceController", () => {
   describe("getTransferencesByBoard", () => {
     it("should return transferences for a board", async () => {
       const transferences: TransferenceType[] = [
-        { id: "1", value: 400, expireDay: 2, boardId: "1", name: "Aluguel", description: "", type: "expense" }
+        { 
+          id: "1", 
+          value: 400, 
+          expireDay: 2, 
+          boardId: "1", 
+          name: "Aluguel", 
+          description: "", 
+          type: "expense",
+          isPaid: false
+        }
       ]
       req.params = { boardId: "1" }
       transferenceServiceMock.getTransferencesByBoard.mockResolvedValue(transferences)
@@ -64,6 +73,7 @@ describe("TransferenceController", () => {
         name: "Test Transference",
         type: "income",
         value: 100,
+        isPaid: false
       }
       req.body = transferenceData
       const mockedData: TransferenceType = { id: "1", ...transferenceData }
@@ -84,6 +94,7 @@ describe("TransferenceController", () => {
         name: "Test Transference",
         type: "income",
         value: 100,
+        isPaid: false
       }
       
       transferenceServiceMock.createTransference.mockRejectedValue(new Error("Falha ao criar a tranferência"))
@@ -104,6 +115,7 @@ describe("TransferenceController", () => {
         name: "Updated Transference",
         type: "expense",
         value: 50,
+        isPaid: true
       }
       req.params = { id }
       req.body = updateData
@@ -115,6 +127,7 @@ describe("TransferenceController", () => {
         name: "Updated Transference",
         type: "expense",
         value: 50,
+        isPaid: true
       })
 
       await transferenceController.updateTransference(req as Request, res as Response)
