@@ -19,8 +19,8 @@ describe("TransferenceRepository", () => {
 
   it("should find all transferences by boardId", async () => {
     const mockTransferences: TransferenceType[] = [
-      { id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense" },
-      { id: "2", value: 100, expireDay: 2, boardId: "2024-10", name: "Luz", description: "", type: "expense" },
+      { id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: false },
+      { id: "2", value: 100, expireDay: 2, boardId: "2024-10", name: "Luz", description: "", type: "expense", isPaid: true },
     ]
 
     prismaMock.transference.findMany.mockResolvedValue(mockTransferences)
@@ -35,7 +35,7 @@ describe("TransferenceRepository", () => {
 
   it("should find a transference by ID", async () => {
     const mockTransference: TransferenceType = {
-      id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense"
+      id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: false
     }
 
     prismaMock.transference.findUnique.mockResolvedValue(mockTransference)
@@ -50,7 +50,7 @@ describe("TransferenceRepository", () => {
 
   it("should create a new transference", async () => {
     const newTransference: CreateTransferenceType = {
-      value: 200, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense"
+      value: 200, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: false
     }
     const createdTransference: TransferenceType = { ...newTransference, id: "1" }
 
@@ -66,7 +66,7 @@ describe("TransferenceRepository", () => {
 
   it("should update a transference", async () => {
     const updateData: UpdateTransferenceType = {
-      value: 200, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense"
+      value: 200, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: true
     }
     const updatedTransference = { id: "1", ...updateData }
 
@@ -89,7 +89,8 @@ describe("TransferenceRepository", () => {
       boardId: "2024-10", 
       name: "Aluguel", 
       description: "", 
-      type: "expense"
+      type: "expense",
+      isPaid: false,
     }
 
     prismaMock.transference.delete.mockResolvedValueOnce(deletedTransference)

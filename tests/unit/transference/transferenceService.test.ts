@@ -16,7 +16,16 @@ describe('TransferenceService', () => {
   it('should get all transferences by boardId', async () => {
     const boardId = 'board-123'
     const mockTransferences: TransferenceType[] = [
-      { id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense" },
+      {
+        id: "1",
+        value: 400,
+        expireDay: 2,
+        boardId: "2024-10",
+        name: "Aluguel",
+        description: "",
+        type: "expense",
+        isPaid: false
+      },
     ]
 
     transferenceRepositoryMock.findAllByBoard.mockResolvedValue(mockTransferences)
@@ -29,12 +38,13 @@ describe('TransferenceService', () => {
 
   it('should create a new transference', async () => {
     const newTransference: CreateTransferenceType = {
-      value: 200, 
-      expireDay: 2, 
-      boardId: "2024-10", 
-      name: "Aluguel", 
-      description: "", 
-      type: "expense"
+      value: 200,
+      expireDay: 2,
+      boardId: "2024-10",
+      name: "Aluguel",
+      description: "",
+      type: "expense",
+      isPaid: false
     }
     const createdTransference: TransferenceType = { ...newTransference, id: "1" }
 
@@ -49,12 +59,13 @@ describe('TransferenceService', () => {
   it('should update a transference by ID', async () => {
     const transferenceId = '1'
     const updateData: UpdateTransferenceType = {
-      value: 200, 
-      expireDay: 2, 
-      boardId: "2024-10", 
-      name: "Aluguel", 
-      description: "", 
-      type: "expense"
+      value: 200,
+      expireDay: 2,
+      boardId: "2024-10",
+      name: "Aluguel",
+      description: "",
+      type: "expense",
+      isPaid: true
     }
     const mockTransference = { id: transferenceId, ...updateData }
 
@@ -70,12 +81,13 @@ describe('TransferenceService', () => {
   it('should throw an error if transference is not found when updating', async () => {
     const transferenceId = 'non-existent-id'
     const updateData: UpdateTransferenceType = {
-      value: 200, 
-      expireDay: 2, 
-      boardId: "2024-10", 
-      name: "Aluguel", 
-      description: "", 
-      type: "expense"
+      value: 200,
+      expireDay: 2,
+      boardId: "2024-10",
+      name: "Aluguel",
+      description: "",
+      type: "expense",
+      isPaid: true
     }
 
     transferenceRepositoryMock.findById.mockResolvedValue(null)
@@ -87,12 +99,13 @@ describe('TransferenceService', () => {
     const transferenceId = '1'
     const mockTransference = {
       id: "1",
-      value: 200, 
-      expireDay: 2, 
-      boardId: "2024-10", 
-      name: "Aluguel", 
-      description: "", 
-      type: "expense"
+      value: 200,
+      expireDay: 2,
+      boardId: "2024-10",
+      name: "Aluguel",
+      description: "",
+      type: "expense",
+      isPaid: false
     }
 
     transferenceRepositoryMock.findById.mockResolvedValue(mockTransference)
