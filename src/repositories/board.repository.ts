@@ -3,15 +3,42 @@ import prisma from "../config/prisma"
 
 class BoardRepository {
   async findAll(userId: string) {
-    return await prisma.board.findMany({ where: { userId } })
+    return await prisma.board.findMany({
+      where: { userId },
+      select: {
+        id: true,
+        initialValue: true,
+        name: true,
+        userId: true,
+        _count: true
+      }
+    })
   }
 
   async findById(id: string) {
-    return await prisma.board.findUnique({ where: { id } })
+    return await prisma.board.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        initialValue: true,
+        name: true,
+        transferences: true,
+        userId: true,
+      }
+    })
   }
 
   async findByName(name: string, userId: string) {
-    return await prisma.board.findFirst({ where: { name, userId } })
+    return await prisma.board.findFirst({
+      where: { name, userId },
+      select: {
+        id: true,
+        initialValue: true,
+        name: true,
+        transferences: true,
+        userId: true,
+      }
+    })
   }
 
   async create(data: CreateBoardType) {
