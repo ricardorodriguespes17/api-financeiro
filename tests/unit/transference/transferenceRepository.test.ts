@@ -7,6 +7,7 @@ const transferenceRepository = new TransferenceRepository()
 
 describe("TransferenceRepository", () => {
   let prismaMock: DeepMockProxy<typeof prisma>
+  const userId = "1"
 
   beforeEach(() => {
     prismaMock = mockDeep<typeof prisma>();
@@ -17,40 +18,91 @@ describe("TransferenceRepository", () => {
     jest.clearAllMocks()
   })
 
-  it("should find all transferences by boardId", async () => {
+  it("should find all transferences by userId", async () => {
     const mockTransferences: TransferenceType[] = [
-      { id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: false },
-      { id: "2", value: 100, expireDay: 2, boardId: "2024-10", name: "Luz", description: "", type: "expense", isPaid: true },
+      {
+        id: "1",
+        value: 400,
+        expireDay: 2,
+        userId: "1",
+        name: "Aluguel",
+        description: "",
+        type: "expense",
+        isPaid: false,
+        month: "2024-10",
+        category: "casa",
+        recurrence: "month",
+        recurrenceTime: 1,
+        recurrenceLimit: null
+      },
+      {
+        id: "2",
+        value: 100,
+        expireDay: 2,
+        userId: "1",
+        name: "Internet",
+        description: "",
+        type: "expense",
+        isPaid: true,
+        month: "2024-10",
+        category: "casa",
+        recurrence: "month",
+        recurrenceTime: 1,
+        recurrenceLimit: null
+      },
     ]
 
     prismaMock.transference.findMany.mockResolvedValue(mockTransferences)
 
-    const result = await transferenceRepository.findAllByBoard("2024-10")
+    const result = await transferenceRepository.findAllByUser(userId)
 
     expect(prisma.transference.findMany).toHaveBeenCalledWith({
-      where: { boardId: "2024-10" },
+      where: { userId },
     })
     expect(result).toEqual(mockTransferences)
   })
 
   it("should find a transference by ID", async () => {
     const mockTransference: TransferenceType = {
-      id: "1", value: 400, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: false
+      id: "1",
+      value: 100,
+      expireDay: 2,
+      userId: "1",
+      name: "Internet",
+      description: "",
+      type: "expense",
+      isPaid: true,
+      month: "2024-10",
+      category: "casa",
+      recurrence: "month",
+      recurrenceTime: 1,
+      recurrenceLimit: null
     }
 
     prismaMock.transference.findUnique.mockResolvedValue(mockTransference)
 
-    const result = await transferenceRepository.findById("1")
+    const result = await transferenceRepository.findById("1", userId)
 
     expect(prisma.transference.findUnique).toHaveBeenCalledWith({
-      where: { id: "1" },
+      where: { id: "1", userId },
     })
     expect(result).toEqual(mockTransference)
   })
 
   it("should create a new transference", async () => {
     const newTransference: CreateTransferenceType = {
-      value: 200, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: false
+      value: 100,
+      expireDay: 2,
+      userId: "1",
+      name: "Internet",
+      description: "",
+      type: "expense",
+      isPaid: true,
+      month: "2024-10",
+      category: "casa",
+      recurrence: "month",
+      recurrenceTime: 1,
+      recurrenceLimit: null
     }
     const createdTransference: TransferenceType = { ...newTransference, id: "1" }
 
@@ -66,39 +118,55 @@ describe("TransferenceRepository", () => {
 
   it("should update a transference", async () => {
     const updateData: UpdateTransferenceType = {
-      value: 200, expireDay: 2, boardId: "2024-10", name: "Aluguel", description: "", type: "expense", isPaid: true
+      value: 100,
+      expireDay: 2,
+      userId: "1",
+      name: "Internet",
+      description: "",
+      type: "expense",
+      isPaid: true,
+      month: "2024-10",
+      category: "casa",
+      recurrence: "month",
+      recurrenceTime: 1,
+      recurrenceLimit: null
     }
     const updatedTransference = { id: "1", ...updateData }
 
     prismaMock.transference.update.mockResolvedValueOnce(updatedTransference)
 
-    const result = await transferenceRepository.update("1", updateData)
+    const result = await transferenceRepository.update("1", userId, updateData)
 
     expect(prisma.transference.update).toHaveBeenCalledWith({
-      where: { id: "1" },
+      where: { id: "1", userId },
       data: updateData,
     })
     expect(result).toEqual(updatedTransference)
   })
 
   it("should delete a transference", async () => {
-    const deletedTransference = {
+    const deletedTransference: TransferenceType = {
       id: "1",
-      value: 200, 
-      expireDay: 2, 
-      boardId: "2024-10", 
-      name: "Aluguel", 
-      description: "", 
+      value: 100,
+      expireDay: 2,
+      userId: "1",
+      name: "Internet",
+      description: "",
       type: "expense",
-      isPaid: false,
+      isPaid: true,
+      month: "2024-10",
+      category: "casa",
+      recurrence: "month",
+      recurrenceTime: 1,
+      recurrenceLimit: null
     }
 
     prismaMock.transference.delete.mockResolvedValueOnce(deletedTransference)
 
-    const result = await transferenceRepository.delete("1")
+    const result = await transferenceRepository.delete("1", userId)
 
     expect(prisma.transference.delete).toHaveBeenCalledWith({
-      where: { id: "1" },
+      where: { id: "1", userId },
     })
     expect(result).toEqual(deletedTransference)
   })

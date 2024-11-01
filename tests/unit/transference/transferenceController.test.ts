@@ -30,32 +30,37 @@ describe("TransferenceController", () => {
   })
 
   describe("getTransferencesByBoard", () => {
-    it("should return transferences for a board", async () => {
+    it("should return transferences for user", async () => {
       const transferences: TransferenceType[] = [
-        { 
-          id: "1", 
-          value: 400, 
-          expireDay: 2, 
-          boardId: "1", 
-          name: "Aluguel", 
-          description: "", 
+        {
+          id: "1",
+          userId: "1",
+          value: 100,
+          expireDay: 2,
+          name: "Internet",
+          description: "",
           type: "expense",
-          isPaid: false
+          isPaid: true,
+          month: "2024-10",
+          category: "casa",
+          recurrence: "month",
+          recurrenceTime: 1,
+          recurrenceLimit: null
         }
       ]
-      req.params = { boardId: "1" }
-      transferenceServiceMock.getTransferencesByBoard.mockResolvedValue(transferences)
+      req.body = { userId: "1" }
+      transferenceServiceMock.getTransferencesByUser.mockResolvedValue(transferences)
 
       await transferenceController.getTransferencesByBoard(req as Request, res as Response)
 
-      expect(transferenceServiceMock.getTransferencesByBoard).toHaveBeenCalledWith("1")
+      expect(transferenceServiceMock.getTransferencesByUser).toHaveBeenCalledWith("1")
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalledWith(transferences)
     })
 
     it("should handle internal error", async () => {
-      req.params = { boardId: "1" }
-      transferenceServiceMock.getTransferencesByBoard.mockRejectedValue(new Error("Erro interno"))
+      req.body = { userId: "1" }
+      transferenceServiceMock.getTransferencesByUser.mockRejectedValue(new Error("Erro interno"))
 
       await transferenceController.getTransferencesByBoard(req as Request, res as Response)
 
@@ -67,13 +72,18 @@ describe("TransferenceController", () => {
   describe("createTransference", () => {
     it("should create a new transference", async () => {
       const transferenceData: CreateTransferenceType = {
-        boardId: "1",
-        description: "Test",
-        expireDay: 15,
-        name: "Test Transference",
-        type: "income",
         value: 100,
-        isPaid: false
+        expireDay: 2,
+        userId: "1",
+        name: "Internet",
+        description: "",
+        type: "expense",
+        isPaid: true,
+        month: "2024-10",
+        category: "casa",
+        recurrence: "month",
+        recurrenceTime: 1,
+        recurrenceLimit: null
       }
       req.body = transferenceData
       const mockedData: TransferenceType = { id: "1", ...transferenceData }
@@ -96,7 +106,7 @@ describe("TransferenceController", () => {
         value: 100,
         isPaid: false
       }
-      
+
       transferenceServiceMock.createTransference.mockRejectedValue(new Error("Falha ao criar a tranferência"))
       await transferenceController.createTransference(req as Request, res as Response)
 
@@ -108,31 +118,28 @@ describe("TransferenceController", () => {
   describe("updateTransference", () => {
     it("should update an existing transference", async () => {
       const id = "1"
+      const userId = "1"
       const updateData: UpdateTransferenceType = {
-        boardId: "1",
-        description: "Updated",
-        expireDay: 10,
-        name: "Updated Transference",
+        value: 100,
+        expireDay: 2,
+        userId,
+        name: "Internet",
+        description: "",
         type: "expense",
-        value: 50,
-        isPaid: true
+        isPaid: true,
+        month: "2024-10",
+        category: "casa",
+        recurrence: "month",
+        recurrenceTime: 1,
+        recurrenceLimit: null
       }
       req.params = { id }
       req.body = updateData
-      transferenceServiceMock.updateTransference.mockResolvedValue({
-        id: "1",
-        boardId: "1",
-        description: "Updated",
-        expireDay: 10,
-        name: "Updated Transference",
-        type: "expense",
-        value: 50,
-        isPaid: true
-      })
+      transferenceServiceMock.updateTransference.mockResolvedValue({ id, ...updateData })
 
       await transferenceController.updateTransference(req as Request, res as Response)
 
-      expect(transferenceServiceMock.updateTransference).toHaveBeenCalledWith(id, updateData)
+      expect(transferenceServiceMock.updateTransference).toHaveBeenCalledWith(id, userId, updateData)
       expect(res.status).not.toHaveBeenCalledWith(500)
     })
 
@@ -159,11 +166,13 @@ describe("TransferenceController", () => {
   describe("deleteTransference", () => {
     it("should delete a transference by ID", async () => {
       const id = "1"
+      const userId = "1"
       req.params = { id }
+      req.body = { userId}
 
       await transferenceController.deleteTransference(req as Request, res as Response)
 
-      expect(transferenceServiceMock.deleteTransference).toHaveBeenCalledWith(id)
+      expect(transferenceServiceMock.deleteTransference).toHaveBeenCalledWith(id, userId)
       expect(res.status).toHaveBeenCalledWith(204)
     })
 
