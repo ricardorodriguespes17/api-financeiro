@@ -27,12 +27,12 @@ model Transference {
   type            String
   category        String?
   month           String
-  recurrenceTime  Int
-  recurrence      String
-  recurrenceLimit Int
+  recurrence      String?
+  recurrenceTime  Int?
+  recurrenceLimit Int?
 
-  User    User?   @relation(fields: [userId], references: [id])
-  userId  String? @db.Uuid
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String? @db.Uuid
 }
 
 model Blacklist {
