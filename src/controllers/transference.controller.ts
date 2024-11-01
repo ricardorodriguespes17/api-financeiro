@@ -15,10 +15,10 @@ class TransferenceController {
   }
 
   async getTransferencesByBoard(req: Request, res: Response) {
-    const { boardId } = req.params
+    const { userId } = req.body
 
     try {
-      const transferences = await this.transferenceService.getTransferencesByBoard(boardId)
+      const transferences = await this.transferenceService.getTransferencesByUser(userId)
       res.status(200).json(transferences)
     } catch (error) {
       res.status(500).json({ message: "Erro interno" })
@@ -26,16 +26,19 @@ class TransferenceController {
   }
 
   async createTransference(req: Request, res: Response) {
-    const { boardId, description, expireDay, name, type, value, isPaid } = req.body
-
     const data: CreateTransferenceType = {
-      boardId,
-      description,
-      expireDay,
-      name,
-      type,
-      value,
-      isPaid
+      description: req.body.description,
+      expireDay: req.body.expireDay,
+      name: req.body.name,
+      type: req.body.type,
+      value: req.body.value,
+      isPaid: req.body.isPaid,
+      userId: req.body.userId,
+      category: req.body.category,
+      month: req.body.month,
+      recurrence: req.body.recurrence,
+      recurrenceLimit: req.body.recurrenceLimit,
+      recurrenceTime: req.body.recurrenceTime
     }
 
     try {
@@ -48,20 +51,25 @@ class TransferenceController {
 
   async updateTransference(req: Request, res: Response) {
     const id = req.params.id
-    const { boardId, description, expireDay, name, type, value, isPaid } = req.body
+    const { userId } = req.body
 
     const data: UpdateTransferenceType = {
-      boardId,
-      description,
-      expireDay,
-      name,
-      type,
-      value,
-      isPaid
+      description: req.body.description,
+      expireDay: req.body.expireDay,
+      name: req.body.name,
+      type: req.body.type,
+      value: req.body.value,
+      isPaid: req.body.isPaid,
+      category: req.body.category,
+      month: req.body.month,
+      recurrence: req.body.recurrence,
+      recurrenceLimit: req.body.recurrenceLimit,
+      recurrenceTime: req.body.recurrenceTime,
+      userId,
     }
 
     try {
-      const updatedTransference = await this.transferenceService.updateTransference(id, data)
+      const updatedTransference = await this.transferenceService.updateTransference(id, userId, data)
       res.status(200).json(updatedTransference)
     } catch (error) {
       const message = (error as Error).message
@@ -76,9 +84,10 @@ class TransferenceController {
 
   async deleteTransference(req: Request, res: Response) {
     const id = req.params.id
+    const { userId } = req.body
 
     try {
-      await this.transferenceService.deleteTransference(id)
+      await this.transferenceService.deleteTransference(id, userId)
       res.status(204).send()
     } catch (error) {
       const message = (error as Error).message

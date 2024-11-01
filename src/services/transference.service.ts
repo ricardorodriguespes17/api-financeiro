@@ -4,32 +4,32 @@ import TransferenceRepository from "../repositories/transference.repository"
 class TransferenceService {
   private transferenceRepository = new TransferenceRepository()
 
-  async getTransferencesByBoard(boardId: string) {
-    return this.transferenceRepository.findAllByBoard(boardId)
+  async getTransferencesByUser(userId: string) {
+    return this.transferenceRepository.findAllByUser(userId)
   }
 
   async createTransference(data: CreateTransferenceType) {
     return this.transferenceRepository.create(data)
   }
 
-  async updateTransference(id: string, data: UpdateTransferenceType) {
-    const transference = await this.transferenceRepository.findById(id)
+  async updateTransference(id: string, userId: string, data: UpdateTransferenceType) {
+    const transference = await this.transferenceRepository.findById(id, userId)
 
     if(!transference) {
       throw new Error("Transferência não encontrada")
     }
 
-    return this.transferenceRepository.update(id, data)
+    return this.transferenceRepository.update(id, userId, data)
   }
 
-  async deleteTransference(id: string) {
-    const transference = await this.transferenceRepository.findById(id)
+  async deleteTransference(id: string, userId: string) {
+    const transference = await this.transferenceRepository.findById(id, userId)
 
     if(!transference) {
       throw new Error("Transferência não encontrada")
     }
 
-    return this.transferenceRepository.delete(id)
+    return this.transferenceRepository.delete(id, userId)
   }
 }
 
