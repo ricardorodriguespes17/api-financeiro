@@ -31,8 +31,6 @@ describe("TransferenceRepository", () => {
         isPaid: false,
         month: "2024-10",
         category: "casa",
-        recurrence: "month",
-        recurrenceTime: 1,
         recurrenceLimit: null
       },
       {
@@ -46,8 +44,6 @@ describe("TransferenceRepository", () => {
         isPaid: true,
         month: "2024-10",
         category: "casa",
-        recurrence: "month",
-        recurrenceTime: 1,
         recurrenceLimit: null
       },
     ]
@@ -74,8 +70,6 @@ describe("TransferenceRepository", () => {
       isPaid: true,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
 
@@ -100,8 +94,6 @@ describe("TransferenceRepository", () => {
       isPaid: true,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
     const createdTransference: TransferenceType = { ...newTransference, id: "1" }
@@ -127,8 +119,6 @@ describe("TransferenceRepository", () => {
       isPaid: true,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
     const updatedTransference = { id: "1", ...updateData }
@@ -156,8 +146,6 @@ describe("TransferenceRepository", () => {
       isPaid: true,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
 

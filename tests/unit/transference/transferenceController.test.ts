@@ -29,7 +29,7 @@ describe("TransferenceController", () => {
     jest.clearAllMocks()
   })
 
-  describe("getTransferencesByBoard", () => {
+  describe("getTransferencesByUser", () => {
     it("should return transferences for user", async () => {
       const transferences: TransferenceType[] = [
         {
@@ -43,15 +43,13 @@ describe("TransferenceController", () => {
           isPaid: true,
           month: "2024-10",
           category: "casa",
-          recurrence: "month",
-          recurrenceTime: 1,
           recurrenceLimit: null
         }
       ]
       req.body = { userId: "1" }
       transferenceServiceMock.getTransferencesByUser.mockResolvedValue(transferences)
 
-      await transferenceController.getTransferencesByBoard(req as Request, res as Response)
+      await transferenceController.getTransferencesByUser(req as Request, res as Response)
 
       expect(transferenceServiceMock.getTransferencesByUser).toHaveBeenCalledWith("1")
       expect(res.status).toHaveBeenCalledWith(200)
@@ -60,12 +58,12 @@ describe("TransferenceController", () => {
 
     it("should handle internal error", async () => {
       req.body = { userId: "1" }
-      transferenceServiceMock.getTransferencesByUser.mockRejectedValue(new Error("Erro interno"))
+      transferenceServiceMock.getTransferencesByUser.mockRejectedValue(new Error())
 
-      await transferenceController.getTransferencesByBoard(req as Request, res as Response)
+      await transferenceController.getTransferencesByUser(req as Request, res as Response)
 
       expect(res.status).toHaveBeenCalledWith(500)
-      expect(res.json).toHaveBeenCalledWith({ message: "Erro interno" })
+      expect(res.json).toHaveBeenCalledWith({ message: "Erro ao carregar as tranferências do 1" })
     })
   })
 
@@ -81,8 +79,6 @@ describe("TransferenceController", () => {
         isPaid: true,
         month: "2024-10",
         category: "casa",
-        recurrence: "month",
-        recurrenceTime: 1,
         recurrenceLimit: null
       }
       req.body = transferenceData
@@ -129,8 +125,6 @@ describe("TransferenceController", () => {
         isPaid: true,
         month: "2024-10",
         category: "casa",
-        recurrence: "month",
-        recurrenceTime: 1,
         recurrenceLimit: null
       }
       req.params = { id }

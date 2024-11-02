@@ -27,8 +27,6 @@ describe('TransferenceService', () => {
         isPaid: false,
         month: "2024-10",
         category: "casa",
-        recurrence: "month",
-        recurrenceTime: 1,
         recurrenceLimit: null
       },
     ]
@@ -52,8 +50,6 @@ describe('TransferenceService', () => {
       isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
     const createdTransference: TransferenceType = { ...newTransference, id: "1" }
@@ -78,8 +74,6 @@ describe('TransferenceService', () => {
       isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
     const mockTransference: TransferenceType = { id: transferenceId, ...updateData }
@@ -106,8 +100,6 @@ describe('TransferenceService', () => {
       isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
 
@@ -130,8 +122,6 @@ describe('TransferenceService', () => {
       isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrence: "month",
-      recurrenceTime: 1,
       recurrenceLimit: null
     }
 
