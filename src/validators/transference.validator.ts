@@ -46,9 +46,8 @@ const createSchema = Joi.object({
     .messages({
       "any.required": "O mês é obrigatório"
     }),
-  recurrence: Joi.string(),
-  recurrenceLimit: Joi.number(),
-  recurrenceTime: Joi.number(),
+  recurrenceLimit: Joi.number().allow(null),
+  category: Joi.string().allow(null),
 })
 
 
