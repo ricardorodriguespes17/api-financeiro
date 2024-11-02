@@ -6,6 +6,17 @@ class TransferenceRepository {
     return await prisma.transference.findMany({ where: { userId } })
   }
 
+  async findByMonth(month: string) {
+    return await prisma.transference.findMany({
+      where: {
+        OR: [
+          { month },
+          { month: { lte: month } },
+        ]
+      }
+    })
+  }
+
   async findById(id: string, userId: string) {
     return await prisma.transference.findUnique({ where: { id, userId } })
   }

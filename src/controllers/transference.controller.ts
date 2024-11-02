@@ -8,20 +8,34 @@ class TransferenceController {
   constructor(transferenceService?: TransferenceService) {
     this.transferenceService = transferenceService || new TransferenceService()
 
-    this.getTransferencesByBoard = this.getTransferencesByBoard.bind(this)
+    this.getTransferencesByUser = this.getTransferencesByUser.bind(this)
+    this.getTransferencesByMonth = this.getTransferencesByMonth.bind(this)
     this.createTransference = this.createTransference.bind(this)
     this.updateTransference = this.updateTransference.bind(this)
     this.deleteTransference = this.deleteTransference.bind(this)
   }
 
-  async getTransferencesByBoard(req: Request, res: Response) {
+  async getTransferencesByUser(req: Request, res: Response) {
     const { userId } = req.body
 
     try {
       const transferences = await this.transferenceService.getTransferencesByUser(userId)
       res.status(200).json(transferences)
     } catch (error) {
-      res.status(500).json({ message: "Erro interno" })
+      res.status(500).json({ message: `Erro ao carregar as tranferências do ${userId}` })
+    }
+  }
+
+  async getTransferencesByMonth(req: Request, res: Response) {
+    const { month } = req.params
+
+    try {
+      const transferences = await this.transferenceService.getTransferencesByMonth(month)
+      res.status(200).json(transferences)
+    } catch (error) {
+      res.status(500).json({ 
+        message: `Erro ao carregar as tranferências do mês ${month}` 
+      })
     }
   }
 
@@ -36,9 +50,7 @@ class TransferenceController {
       userId: req.body.userId,
       category: req.body.category,
       month: req.body.month,
-      recurrence: req.body.recurrence,
       recurrenceLimit: req.body.recurrenceLimit,
-      recurrenceTime: req.body.recurrenceTime
     }
 
     try {
@@ -62,9 +74,7 @@ class TransferenceController {
       isPaid: req.body.isPaid,
       category: req.body.category,
       month: req.body.month,
-      recurrence: req.body.recurrence,
       recurrenceLimit: req.body.recurrenceLimit,
-      recurrenceTime: req.body.recurrenceTime,
       userId,
     }
 

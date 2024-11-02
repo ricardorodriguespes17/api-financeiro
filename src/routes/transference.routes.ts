@@ -8,10 +8,9 @@ const transferenceController = new TransferenceController()
 const transferenceValidator = new TransferenceValidator()
 
 transferenceRouter.get(
-  "/transferences/:boardId",
+  "/transferences/:month",
   authMiddleware,
-  
-  transferenceController.getTransferencesByBoard
+  transferenceController.getTransferencesByMonth
 )
 transferenceRouter.post(
   "/transferences",
