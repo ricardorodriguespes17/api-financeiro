@@ -4,32 +4,48 @@ import TransferenceRepository from "../repositories/transference.repository"
 class TransferenceService {
   private transferenceRepository = new TransferenceRepository()
 
-  async getTransferencesByBoard(boardId: string) {
-    return this.transferenceRepository.findAllByBoard(boardId)
+  async getTransferencesByUser(userId: string) {
+    return this.transferenceRepository.findAllByUser(userId)
+  }
+
+  async getTransferencesByMonth(month: string) {
+    const [targetYear, targerMonth] = month.split("-").map(Number)
+    const monthValue = targerMonth + targetYear * 12
+    const beforeTransferences = await this.transferenceRepository.findByMonth(month)
+
+    return beforeTransferences.filter(item => {
+      const [itemYear, itemMonth] = item.month.split("-").map(Number)
+      const itemMonthValue = itemMonth + itemYear * 12
+
+      if (item.month === month) return true
+      if(item.recurrenceLimit)
+        return (monthValue - itemMonthValue) < item.recurrenceLimit
+      return true
+    })
   }
 
   async createTransference(data: CreateTransferenceType) {
     return this.transferenceRepository.create(data)
   }
 
-  async updateTransference(id: string, data: UpdateTransferenceType) {
-    const transference = await this.transferenceRepository.findById(id)
+  async updateTransference(id: string, userId: string, data: UpdateTransferenceType) {
+    const transference = await this.transferenceRepository.findById(id, userId)
 
-    if(!transference) {
+    if (!transference) {
       throw new Error("Transferência não encontrada")
     }
 
-    return this.transferenceRepository.update(id, data)
+    return this.transferenceRepository.update(id, userId, data)
   }
 
-  async deleteTransference(id: string) {
-    const transference = await this.transferenceRepository.findById(id)
+  async deleteTransference(id: string, userId: string) {
+    const transference = await this.transferenceRepository.findById(id, userId)
 
-    if(!transference) {
+    if (!transference) {
       throw new Error("Transferência não encontrada")
     }
 
-    return this.transferenceRepository.delete(id)
+    return this.transferenceRepository.delete(id, userId)
   }
 }
 

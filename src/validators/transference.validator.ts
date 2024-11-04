@@ -36,12 +36,18 @@ const createSchema = Joi.object({
     .messages({
       "any.required": "isPaid é obrigatório",
     }),
-  boardId: Joi.string()
+  userId: Joi.string()
     .required()
     .messages({
-      "any.required": "'boardId' é obrigatório"
+      "any.required": "userId é obrigatório",
     }),
-  userId: Joi.string()
+  month: Joi.string()
+    .required()
+    .messages({
+      "any.required": "O mês é obrigatório"
+    }),
+  recurrenceLimit: Joi.number().allow(null),
+  category: Joi.string().allow(null),
 })
 
 

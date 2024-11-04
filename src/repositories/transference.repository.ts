@@ -2,24 +2,35 @@ import { CreateTransferenceType, UpdateTransferenceType } from "../@types/transf
 import prisma from "../config/prisma"
 
 class TransferenceRepository {
-  async findAllByBoard(boardId: string) {
-    return await prisma.transference.findMany({ where: { boardId } })
+  async findAllByUser(userId: string) {
+    return await prisma.transference.findMany({ where: { userId } })
   }
 
-  async findById(id: string) {
-    return await prisma.transference.findUnique({ where: { id } })
+  async findByMonth(month: string) {
+    return await prisma.transference.findMany({
+      where: {
+        OR: [
+          { month },
+          { month: { lte: month } },
+        ]
+      }
+    })
+  }
+
+  async findById(id: string, userId: string) {
+    return await prisma.transference.findUnique({ where: { id, userId } })
   }
 
   async create(data: CreateTransferenceType) {
     return await prisma.transference.create({ data })
   }
 
-  async update(id: string, data: UpdateTransferenceType) {
-    return await prisma.transference.update({ where: { id }, data })
+  async update(id: string, userId: string, data: UpdateTransferenceType) {
+    return await prisma.transference.update({ where: { id, userId }, data })
   }
 
-  async delete(id: string) {
-    return await prisma.transference.delete({ where: { id } })
+  async delete(id: string, userId: string) {
+    return await prisma.transference.delete({ where: { id, userId } })
   }
 }
 
