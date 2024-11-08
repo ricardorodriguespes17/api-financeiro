@@ -28,10 +28,10 @@ describe("TransferenceRepository", () => {
         name: "Aluguel",
         description: "",
         type: "expense",
-        isPaid: false,
         month: "2024-10",
         category: "casa",
-        recurrenceLimit: null
+        recurrenceLimit: null,
+        installments: []
       },
       {
         id: "2",
@@ -41,10 +41,10 @@ describe("TransferenceRepository", () => {
         name: "Internet",
         description: "",
         type: "expense",
-        isPaid: true,
         month: "2024-10",
         category: "casa",
-        recurrenceLimit: null
+        recurrenceLimit: null,
+        installments: [],
       },
     ]
 
@@ -67,10 +67,10 @@ describe("TransferenceRepository", () => {
       name: "Internet",
       description: "",
       type: "expense",
-      isPaid: true,
       month: "2024-10",
       category: "casa",
-      recurrenceLimit: null
+      recurrenceLimit: null,
+      installments: [],
     }
 
     prismaMock.transference.findUnique.mockResolvedValue(mockTransference)
@@ -91,12 +91,11 @@ describe("TransferenceRepository", () => {
       name: "Internet",
       description: "",
       type: "expense",
-      isPaid: true,
       month: "2024-10",
       category: "casa",
       recurrenceLimit: null
     }
-    const createdTransference: TransferenceType = { ...newTransference, id: "1" }
+    const createdTransference: TransferenceType = { ...newTransference, installments: [], id: "1" }
 
     prismaMock.transference.create.mockResolvedValue(createdTransference)
 
@@ -116,7 +115,6 @@ describe("TransferenceRepository", () => {
       name: "Internet",
       description: "",
       type: "expense",
-      isPaid: true,
       month: "2024-10",
       category: "casa",
       recurrenceLimit: null
@@ -143,7 +141,7 @@ describe("TransferenceRepository", () => {
       name: "Internet",
       description: "",
       type: "expense",
-      isPaid: true,
+      installments: [],
       month: "2024-10",
       category: "casa",
       recurrenceLimit: null

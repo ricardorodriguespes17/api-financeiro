@@ -24,10 +24,10 @@ describe('TransferenceService', () => {
         name: "Aluguel",
         description: "",
         type: "expense",
-        isPaid: false,
         month: "2024-10",
         category: "casa",
-        recurrenceLimit: null
+        recurrenceLimit: null,
+        installments: []
       },
     ]
 
@@ -47,12 +47,11 @@ describe('TransferenceService', () => {
       name: "Aluguel",
       description: "",
       type: "expense",
-      isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrenceLimit: null
+      recurrenceLimit: null,
     }
-    const createdTransference: TransferenceType = { ...newTransference, id: "1" }
+    const createdTransference: TransferenceType = { ...newTransference, installments: [], id: "1" }
 
     transferenceRepositoryMock.create.mockResolvedValue(createdTransference)
 
@@ -71,12 +70,11 @@ describe('TransferenceService', () => {
       name: "Aluguel",
       description: "",
       type: "expense",
-      isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrenceLimit: null
+      recurrenceLimit: null,
     }
-    const mockTransference: TransferenceType = { id: transferenceId, ...updateData }
+    const mockTransference: TransferenceType = { id: transferenceId, installments: [], ...updateData }
 
     transferenceRepositoryMock.findById.mockResolvedValue(mockTransference)
     transferenceRepositoryMock.update.mockResolvedValue(mockTransference)
@@ -97,10 +95,9 @@ describe('TransferenceService', () => {
       name: "Aluguel",
       description: "",
       type: "expense",
-      isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrenceLimit: null
+      recurrenceLimit: null,
     }
 
     transferenceRepositoryMock.findById.mockResolvedValue(null)
@@ -119,10 +116,10 @@ describe('TransferenceService', () => {
       name: "Aluguel",
       description: "",
       type: "expense",
-      isPaid: false,
       month: "2024-10",
       category: "casa",
-      recurrenceLimit: null
+      recurrenceLimit: null,
+      installments: []
     }
 
     transferenceRepositoryMock.findById.mockResolvedValue(mockTransference)

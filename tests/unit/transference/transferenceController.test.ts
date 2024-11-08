@@ -40,7 +40,7 @@ describe("TransferenceController", () => {
           name: "Internet",
           description: "",
           type: "expense",
-          isPaid: true,
+          installments: [],
           month: "2024-10",
           category: "casa",
           recurrenceLimit: null
@@ -76,13 +76,12 @@ describe("TransferenceController", () => {
         name: "Internet",
         description: "",
         type: "expense",
-        isPaid: true,
         month: "2024-10",
         category: "casa",
         recurrenceLimit: null
       }
       req.body = transferenceData
-      const mockedData: TransferenceType = { id: "1", ...transferenceData }
+      const mockedData: TransferenceType = { id: "1", installments: [], ...transferenceData }
 
       transferenceServiceMock.createTransference.mockResolvedValue(mockedData)
       await transferenceController.createTransference(req as Request, res as Response)
@@ -122,14 +121,17 @@ describe("TransferenceController", () => {
         name: "Internet",
         description: "",
         type: "expense",
-        isPaid: true,
         month: "2024-10",
         category: "casa",
         recurrenceLimit: null
       }
       req.params = { id }
       req.body = updateData
-      transferenceServiceMock.updateTransference.mockResolvedValue({ id, ...updateData })
+      transferenceServiceMock.updateTransference.mockResolvedValue({
+        id,
+        installments: [],
+        ...updateData
+      })
 
       await transferenceController.updateTransference(req as Request, res as Response)
 
@@ -162,7 +164,7 @@ describe("TransferenceController", () => {
       const id = "1"
       const userId = "1"
       req.params = { id }
-      req.body = { userId}
+      req.body = { userId }
 
       await transferenceController.deleteTransference(req as Request, res as Response)
 

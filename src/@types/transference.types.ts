@@ -1,5 +1,5 @@
-import { Transference } from "@prisma/client"
+import { Installment, Transference } from "@prisma/client"
 
-export type TransferenceType = Transference
-export type CreateTransferenceType = Omit<TransferenceType, "id">
+export type TransferenceType = Transference & { installments: Installment[] }
+export type CreateTransferenceType = Omit<Omit<TransferenceType, "id">, "installments">
 export type UpdateTransferenceType = CreateTransferenceType
