@@ -33,6 +33,7 @@ class TransferenceController {
       const transferences = await this.transferenceService.getTransferencesByMonth(month)
       res.status(200).json(transferences)
     } catch (error) {
+      console.log(error)
       res.status(500).json({ 
         message: `Erro ao carregar as tranferências do mês ${month}` 
       })
@@ -46,7 +47,6 @@ class TransferenceController {
       name: req.body.name,
       type: req.body.type,
       value: req.body.value,
-      isPaid: req.body.isPaid,
       userId: req.body.userId,
       category: req.body.category,
       month: req.body.month,
@@ -71,7 +71,6 @@ class TransferenceController {
       name: req.body.name,
       type: req.body.type,
       value: req.body.value,
-      isPaid: req.body.isPaid,
       category: req.body.category,
       month: req.body.month,
       recurrenceLimit: req.body.recurrenceLimit,
