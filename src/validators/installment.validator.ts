@@ -18,6 +18,7 @@ const createInstallmentSchema = Joi.object({
       'any.required': 'O valor é obrigatório',
       'any.number': 'O valor deve ser númerico',
     }),
+  userId: Joi.string()
 })
 
 class InstallmentValidator {
