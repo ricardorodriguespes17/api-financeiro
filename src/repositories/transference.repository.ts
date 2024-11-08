@@ -35,7 +35,7 @@ class TransferenceRepository {
   }
 
   async create(data: CreateTransferenceType) {
-    return await prisma.transference.create({ data, select: { installments: true } })
+    return await prisma.transference.create({ data, include: { installments: true } })
   }
 
   async update(id: string, userId: string, data: UpdateTransferenceType) {
