@@ -17,8 +17,8 @@ class InstallmentController {
     }
 
     try {
-      await installmentService.createInstallment(data)
-      res.status(201).json({ message: "Pagamento criado com sucesso" })
+      const reponse = await installmentService.createInstallment(data)
+      res.status(201).json(reponse)
     } catch (error) {
       const message = (error as Error).message
 
