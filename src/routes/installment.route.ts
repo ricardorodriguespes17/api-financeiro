@@ -8,13 +8,13 @@ const installmentController = new InstallmentController()
 const installmentValidator = new InstallmentValidator()
 
 installmentRouter.post(
-  "/transference/installment",
+  "/transferences/installment",
   authMiddleware,
   installmentValidator.createInstallment,
   installmentController.createInstallment
 )
 installmentRouter.delete(
-  "/transference/installment",
+  "/transferences/installment/:id",
   authMiddleware,
   installmentController.deleteInstallment
 )
