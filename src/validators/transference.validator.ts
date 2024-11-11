@@ -7,7 +7,7 @@ const createSchema = Joi.object({
     .messages({
       "any.required": "O nome é obrigatório"
     }),
-  description: Joi.string().min(0),
+  description: Joi.string().allow(null).allow(""),
   value: Joi.number()
     .min(0)
     .required()
@@ -25,11 +25,11 @@ const createSchema = Joi.object({
       "number.max": "O dia de vencimento deve ser menor ou igual a 31"
     }),
   type: Joi.string()
-    .valid('income', 'expense')
+    .valid('income', 'expense', 'initial')
     .required()
     .messages({
       "any.required": "Tipo inválido",
-      "any.only": "O tipo deve ser 'income' ou 'expense'"
+      "any.only": "O tipo deve ser 'income', 'expense' ou 'initial'"
     }),
   userId: Joi.string()
     .required()
