@@ -17,6 +17,18 @@ class CreditController {
     }
   }
 
+  async getCreditByMonth(req: Request, res: Response) {
+    const { month } = req.params
+    const { userId } = req.body
+
+    try {
+      const creditsData = await creditService.getCreditsByMonth(userId, month)
+      res.status(200).json(creditsData)
+    } catch (error) {
+      res.status(404).json({ message: "Usuário não encontrado" })
+    }
+  }
+
   async createCredit(req: Request, res: Response) {
     const { name, color, expireDay, limit, userId } = req.body
 

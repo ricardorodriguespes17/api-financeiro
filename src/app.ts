@@ -4,6 +4,7 @@ import transferenceRouter from "./routes/transference.routes"
 import authRouter from "./routes/auth.routes"
 import installmentRouter from "./routes/installment.route"
 import cors from "cors"
+import creditRouter from "./routes/credit.routes"
 
 const app = express()
 app.use(express.json())
@@ -17,5 +18,6 @@ app.use(userRouter)
 app.use(transferenceRouter)
 app.use(authRouter)
 app.use(installmentRouter)
+app.use(creditRouter)
 
 export default app
