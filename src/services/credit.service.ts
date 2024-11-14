@@ -18,7 +18,7 @@ class CreditService {
     return this.creditRepository.create(data)
   }
 
-  async updateUser(id: string, data: UpdateCreditType) {
+  async updateCredit(id: string, data: UpdateCreditType) {
     return this.creditRepository.update(id, data)
   }
 
