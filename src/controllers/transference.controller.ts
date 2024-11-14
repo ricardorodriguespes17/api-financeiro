@@ -51,6 +51,7 @@ class TransferenceController {
       category: req.body.category,
       month: req.body.month,
       recurrenceLimit: req.body.recurrenceLimit,
+      creditId: null,
     }
 
     try {
@@ -75,6 +76,7 @@ class TransferenceController {
       month: req.body.month,
       recurrenceLimit: req.body.recurrenceLimit,
       userId,
+      creditId: null
     }
 
     try {
