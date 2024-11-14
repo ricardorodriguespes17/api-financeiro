@@ -8,7 +8,7 @@ const creditController = new CreditController()
 const creditValidator = new CreditValidator()
 
 creditRouter.get("/credits/month/:month", authMiddleware, creditController.getCreditByMonth)
-creditRouter.get("/credits/:id", authMiddleware, creditController.getCreditByUser)
+creditRouter.get("/credits", authMiddleware, creditController.getCreditByUser)
 creditRouter.post("/credits", authMiddleware, creditValidator.create, creditController.createCredit)
 creditRouter.put("/credits", authMiddleware, creditValidator.create, creditController.updateCredit)
 
