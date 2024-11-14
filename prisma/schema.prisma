@@ -15,6 +15,7 @@ model User {
   birthdate     String
   createdAt     DateTime       @default(now())
   transferences Transference[]
+  credits       Credit[]
 }
 
 model Transference {
@@ -30,8 +31,10 @@ model Transference {
 
   installments Installment[]
 
-  User   User?  @relation(fields: [userId], references: [id])
-  userId String @db.Uuid
+  User     User    @relation(fields: [userId], references: [id])
+  userId   String  @db.Uuid
+  Credit   Credit? @relation(fields: [creditId], references: [id])
+  creditId String? @db.Uuid
 }
 
 model Installment {
@@ -47,4 +50,16 @@ model Blacklist {
   id         String   @id @default(uuid()) @db.Uuid
   token      String
   includedIn DateTime @default(now())
+}
+
+model Credit {
+  id        String @id @default(uuid()) @db.Uuid
+  name      String
+  expireDay Int
+  limit     Float
+  color     String
+
+  transferences Transference[]
+  User          User           @relation(fields: [userId], references: [id])
+  userId        String         @db.Uuid
 }
