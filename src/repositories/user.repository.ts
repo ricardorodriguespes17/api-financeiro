@@ -4,28 +4,14 @@ import { CreateUserType, UpdateUserType } from "../@types/user.types"
 class UserRepository {
   async findAll() {
     return await prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        birthdate: true,
-        createdAt: true,
-        password: false,
-      }
+      select: { password: false }
     })
   }
 
   async findById(id: string) {
     return await prisma.user.findUnique({
       where: { id },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        birthdate: true,
-        createdAt: true,
-        password: false,
-      }
+      select: { password: false }
     })
   }
 
@@ -41,14 +27,7 @@ class UserRepository {
     return await prisma.user.update({
       where: { id },
       data,
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        birthdate: true,
-        createdAt: true,
-        password: false,
-      }
+      select: { password: false }
     })
   }
 
